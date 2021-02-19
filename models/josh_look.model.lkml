@@ -87,39 +87,3 @@ explore: user_data {
 }
 
 explore: users {}
-
-explore: vvimgsrc1onerroralert2ll {}
-
-explore: xin_test_for_bug2 {}
-
-explore: xss_test {}
-
-explore: xss_test_1 {}
-
-explore: xss_test_10 {}
-
-explore: xss_test_11 {}
-
-explore: xss_test_12 {}
-
-explore: xss_test_13 {}
-
-explore: xss_test_14 {}
-
-explore: xss_test_15 {}
-
-explore: xss_test_16 {}
-
-explore: xss_test_2 {}
-
-explore: xss_test_4 {}
-
-explore: xss_test_5 {}
-
-explore: xss_test_6 {}
-
-explore: xss_test_7 {}
-
-explore: xss_test_8 {}
-
-explore: xss_test_9 {}
