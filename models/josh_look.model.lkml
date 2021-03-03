@@ -12,6 +12,11 @@ persist_with: josh_look_default_datagroup
 
 explore: connection_reg_r3 {}
 
+access_grant: test {
+  allowed_values: ["tehe"]
+  user_attribute: locale
+}
+
 explore: events {
   hidden:  yes
   join: users {

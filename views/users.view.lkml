@@ -16,6 +16,8 @@ view: users {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+    hidden: yes
+    required_access_grants: [test]
   }
 
   filter: city_test {
