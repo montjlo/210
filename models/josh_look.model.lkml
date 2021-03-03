@@ -13,11 +13,35 @@ persist_with: josh_look_default_datagroup
 explore: connection_reg_r3 {}
 
 explore: events {
+  hidden:  yes
   join: users {
     type: left_outer
     sql_on: ${events.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
+#   sql_always_where:
+#   {% if fct_opportunity.valid_start._is_filtered AND fct_opportunity.valid_end._is_filtered %}
+#   ${subscription_start_date} >= {% parameter fct_opportunity.valid_start %}
+# AND ${subscription_end_date}<={% parameter fct_opportunity.valid_end %}
+# {% else %}
+# 1=1
+# {% endif %}
+#   ;;
+
+#   sql_always_where:
+#   {% if fct_opportunity.valid_start._is_filtered AND fct_opportunity.valid_end._is_filtered %}
+#   ${subscription_start_date} >= {% parameter fct_opportunity.valid_start %}
+#   AND ${subscription_end_date}<={% parameter fct_opportunity.valid_end %}
+#   {% elsif (fct_opportunity.valid_start._is_filtered AND fct_opportunity.valid_end._is_filtered==false) OR
+#     (fct_opportunity.valid_start._is_filtered==false AND fct_opportunity.valid_end._is_filtered) %}
+#   "You must include a filter value for both Valid Start and Valid End for the filter to work"
+#   {% else %}
+#   1=1
+#   {% endif %}
+#   ;;
+}
+explore: products {
+  hidden: yes
 }
 
 explore: flights {}
@@ -66,7 +90,7 @@ explore: orders {
   }
 }
 
-explore: products {}
+
 
 explore: saralooker {
   join: users {

@@ -18,6 +18,35 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  filter: city_test {
+    type: string
+  }
+
+  dimension: test_many {
+    type: string
+    sql:CAST("{% condition city_test %}${city}{% endcondition%}" AS CHAR);;
+  }
+
+  parameter: multivalue {
+    default_value: "{% condition city_test %}${city}{% endcondition%}"
+  }
+
+  parameter: label_test {
+    allowed_value: {
+      label: "{{multivalue._parameter_value}}"
+      value: "1"
+    }
+  }
+
+  filter: emmanuel_test{
+    default_value: "0"
+    type: number
+  }
+  dimension: multivalue_test {
+
+    sql: {% parameter multivalue %} ;;
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
