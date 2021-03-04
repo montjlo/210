@@ -17,6 +17,8 @@ access_grant: test {
   user_attribute: locale
 }
 
+explore: test {}
+
 explore: events {
   hidden:  yes
   join: users {
