@@ -8,6 +8,10 @@ datagroup: josh_look_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+named_value_format: large_number_unit {
+  value_format:"[>=1000]\"\"0.00,\" GWh\";[<=-1000]\"\"-0.00,\" GWh\";\"\"0.00\" MWh\""
+}
+
 persist_with: josh_look_default_datagroup
 
 explore: connection_reg_r3 {}
