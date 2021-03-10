@@ -22,6 +22,14 @@ view: orders {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: drill_status {
+    #group_label: "dimension_店舗軸"
+    label: "店舗館タイプ"
+    type: string
+    sql: ${TABLE}.status ;;
+    drill_fields: [id, user_id]
+  }
+
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;

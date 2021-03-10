@@ -2,10 +2,16 @@ connection: "the_look"
 
 # include all the views
 include: "/views/**/*.view"
+include: "/mod89.view"
 
 datagroup: josh_look_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
+}
+
+##
+named_value_format: large_number_unit {
+  value_format:"[>=1000]\"\"0.00,\" GWh\";[<=-1000]\"\"-0.00,\" GWh\";\"\"0.00\" MWh\""
 }
 
 persist_with: josh_look_default_datagroup
