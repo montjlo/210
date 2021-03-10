@@ -33,6 +33,15 @@ view: users {
     default_value: "{% condition city_test %}${city}{% endcondition%}"
   }
 
+  parameter: list_values {
+    type: string
+  }
+
+  dimension: list_values_di {
+    type: string
+    sql: {%parameter list_values%} ;;
+  }
+
   parameter: label_test {
     allowed_value: {
       label: "{{multivalue._parameter_value}}"
@@ -77,6 +86,10 @@ view: users {
   dimension: first_name {
     type: string
     sql: ${TABLE}.first_name ;;
+    link: {
+      label: "{% if users.state._value == 'California' %} Link does not exist {% else %} Great Success {% endif %}"
+      url: "{% if users.state._value == 'California' %} https://www.google.com {% else %} https://www.youtube.com/watch?v=feA64wXhbjo {% endif %}"
+    }
   }
 
   dimension: gender {
@@ -102,6 +115,17 @@ view: users {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_sabre_test {
+    value_format: "#######"
+    type: string
+    sql: max("-23--67") ;;
+    html:
+    <ul>
+    <li><b>{{ value }}</b></li>
+    <li>{{ rendered_value }}</li>
+    </ul>;;
   }
 
   # ----- Sets of fields for drilling ------

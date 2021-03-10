@@ -47,4 +47,15 @@ view: test {
     <li>{{ rendered_value }}</li>
     </ul>;;
   }
+
+  measure: freq_min {
+    type: min
+    value_format: "#######"
+    sql: ${frequency} ;;
+    html:
+    <ul>
+    <li><b>{{ value }}</b></li>
+    <li>{{ rendered_value }}</li>
+    </ul>;;
+  }
 }
