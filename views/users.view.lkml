@@ -78,6 +78,44 @@ view: users {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension_group: deleted {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: DATE_ADD(${TABLE}.created_at, INTERVAL 2 YEAR) ;;
+  }
+
+  dimension: today {
+    type: date
+    sql: CURDATE() ;;
+  }
+
+  dimension: valid_user{
+    type: number
+    sql:
+    CASE WHEN ${deleted_date}>=CURDATE() THEN 1
+    ELSE 0 END;;
+  }
+
+  measure: count_valid {
+    type: sum
+    sql: ${valid_user} ;;
+  }
+
+  measure: valid_user_m{
+    type: sum
+    sql:
+    CASE WHEN ${deleted_date}>=CURDATE() THEN 1
+    ELSE 0 END;;
+  }
+
   dimension: email {
     type: string
     sql: ${TABLE}.email ;;
@@ -140,4 +178,7 @@ view: users {
       user_data.count
     ]
   }
+}
+view: users_2 {
+  extends: [users]
 }

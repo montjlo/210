@@ -2,7 +2,8 @@ connection: "the_look"
 
 # include all the views
 include: "/views/**/*.view"
-include: "/mod89.view"
+
+
 
 datagroup: josh_look_default_datagroup {
   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -10,9 +11,9 @@ datagroup: josh_look_default_datagroup {
 }
 
 ##
-named_value_format: large_number_unit {
-  value_format:"[>=1000]\"\"0.00,\" GWh\";[<=-1000]\"\"-0.00,\" GWh\";\"\"0.00\" MWh\""
-}
+# named_value_format: large_number_unit {
+#   value_format:"[>=1000]\"\"0.00,\" GWh\";[<=-1000]\"\"-0.00,\" GWh\";\"\"0.00\" MWh\""
+# }
 
 persist_with: josh_look_default_datagroup
 
@@ -123,4 +124,10 @@ explore: user_data {
   }
 }
 
-explore: users {}
+# explore: users {}
+# explore: users_2 {
+#   join: users {
+#     type: left_outer
+#     sql_on: ${users.id}=${users_2.id} ;;
+#   }
+# }

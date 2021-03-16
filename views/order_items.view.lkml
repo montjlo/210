@@ -42,6 +42,7 @@ view: order_items {
   measure: total_sale_price {
     type: sum
     sql: ${sale_price} ;;
+    value_format: "$#.00;($#.00)"
   }
 
   measure: count {
