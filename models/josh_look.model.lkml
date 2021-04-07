@@ -2,13 +2,13 @@ connection: "the_look"
 
 # include all the views
 include: "/views/**/*.view"
+include: "/*.dashboard"
 
 
-
-datagroup: josh_look_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
-  max_cache_age: "1 hour"
-}
+# datagroup: josh_look_default_datagroup {
+#   # sql_trigger: SELECT MAX(id) FROM etl_log;;
+#   max_cache_age: "1 hour"
+# }
 
 ##
 # named_value_format: large_number_unit {
@@ -19,10 +19,10 @@ persist_with: josh_look_default_datagroup
 
 explore: connection_reg_r3 {}
 
-access_grant: test {
-  allowed_values: ["tehe"]
-  user_attribute: locale
-}
+# access_grant: test {
+#   allowed_values: ["tehe"]
+#   user_attribute: locale
+# }
 
 explore: test {}
 
@@ -123,8 +123,13 @@ explore: user_data {
     relationship: many_to_one
   }
 }
+ explore: users {
+  # conditionally_filter: {
+  #   filters: [users.created_date: "yesterday to today"]
+  # }
+ }
 
-# explore: users {}
+
 # explore: users_2 {
 #   join: users {
 #     type: left_outer

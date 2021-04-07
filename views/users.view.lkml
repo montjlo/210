@@ -13,49 +13,31 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  measure: age_sum {
+    type: sum
+    sql: ${age} ;;
+  }
+  measure: age_sum_2 {
+    type: sum
+    sql: ${TABLE}.age ;;
+  }
+
+  dimension: over_20 {
+    type: yesno
+    sql: ${age}>20 ;;
+  }
+
+  dimension: case_yesno_test {
+    type: string
+    sql: CASE WHEN ${over_20} = true THEN 'working'
+    WHEN ${over_20} = no THEN 'weird' END;;
+  }
+
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
     hidden: yes
-    required_access_grants: [test]
-  }
-
-  filter: city_test {
-    type: string
-  }
-
-  dimension: test_many {
-    type: string
-    sql:CAST("{% condition city_test %}${city}{% endcondition%}" AS CHAR);;
-  }
-
-  parameter: multivalue {
-    default_value: "{% condition city_test %}${city}{% endcondition%}"
-  }
-
-  parameter: list_values {
-    type: string
-  }
-
-  dimension: list_values_di {
-    type: string
-    sql: {%parameter list_values%} ;;
-  }
-
-  parameter: label_test {
-    allowed_value: {
-      label: "{{multivalue._parameter_value}}"
-      value: "1"
-    }
-  }
-
-  filter: emmanuel_test{
-    default_value: "0"
-    type: number
-  }
-  dimension: multivalue_test {
-
-    sql: {% parameter multivalue %} ;;
+    #required_access_grants: [test]
   }
 
   dimension: country {
@@ -67,15 +49,14 @@ view: users {
   dimension_group: created {
     type: time
     timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      month,
-      quarter,
-      year
+
     ]
     sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: min_date {
+    type: yesno
+    sql: ${created_week}=MIN(${created_week}) ;;
   }
 
   dimension_group: deleted {
@@ -89,8 +70,18 @@ view: users {
       quarter,
       year
     ]
-    sql: DATE_ADD(${TABLE}.created_at, INTERVAL 2 YEAR) ;;
+    sql: DATE_ADD(${TABLE}.created_at, INTERVAL 4 MONTH) ;;
   }
+
+  # measure: distinct_users {
+  #   type: count_distinct
+  #   sql: CASE WHEN ${deleted_raw}>${orders.created_raw} THEN ${id} ELSE NULL END ;;
+  # }
+
+  # measure: distinct_users_test {
+  #   type: count_distinct
+  #   sql: CASE WHEN ${deleted_raw}>${created_raw} THEN ${id} ELSE NULL END ;;
+  # }
 
   dimension: today {
     type: date
@@ -178,7 +169,60 @@ view: users {
       user_data.count
     ]
   }
+
+############## TESTING ################
+
+filter: city_test {
+  type: string
 }
-view: users_2 {
-  extends: [users]
+
+dimension: test_many {
+  type: string
+  sql:CAST("{% condition city_test %}${city}{% endcondition%}" AS CHAR);;
+}
+
+parameter: multivalue {
+  default_value: "{% condition city_test %}${city}{% endcondition%}"
+}
+
+parameter: list_values {
+  type: string
+}
+
+dimension: list_values_di {
+  type: string
+  sql: {%parameter list_values%} ;;
+}
+
+parameter: label_test {
+  label: "{{users.state._value}}"
+  allowed_value: {
+    value: "label test dynamic value"
+  }
+  #suggest_dimension: first_name
+}
+
+dimension: label_dimension_test {
+  label: "{% parameter label_test %}"
+  sql: {% parameter label_test %} ;;
+}
+
+filter: created_test {
+  type: date
+  default_value: "after 2018/05/10 and before 2018/05/18"
+}
+filter: emmanuel_test{
+  default_value: "0"
+  type: number
+}
+dimension: multivalue_test {
+
+  sql: {% parameter multivalue %} ;;
+}
+
+dimension: state_space {
+  type: string
+  sql: CONCAT(${state}," ") ;;
+}
+
 }

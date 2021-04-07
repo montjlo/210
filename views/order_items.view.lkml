@@ -45,6 +45,12 @@ view: order_items {
     value_format: "$#.00;($#.00)"
   }
 
+  measure: total_sale_price_format_test {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format: "[>=1000000000]\"R$\"0.00,,,\"B\";[>=1000000]\"R$\"0.00,,\"MM\";[>=1000]\"R$\"0.00,\"Mil\";\"R$\"0.00"
+  }
+
   measure: count {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
