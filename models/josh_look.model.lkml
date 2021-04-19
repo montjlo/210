@@ -4,6 +4,7 @@ connection: "the_look"
 include: "/views/**/*.view"
 include: "/*.dashboard"
 
+#more test
 # <<<<<<< HEAD
 # <<<<<<< HEAD
 # #pull requests required
