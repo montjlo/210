@@ -4,7 +4,33 @@ connection: "the_look"
 include: "/views/**/*.view"
 include: "/*.dashboard"
 
+#<<<<<<< HEAD
 #new changes
+#=======
+# <<<<<<< HEAD
+# #more test
+# # <<<<<<< HEAD
+# # <<<<<<< HEAD
+# # #pull requests required
+# # #bonus comment
+# # #another comment for good measure
+# # =======
+# # #changes for merge conflict test
+# # #additional lines for conflight
+# =======
+# >>>>>>> branch 'master' of git@github.com:montjlo/210.git
+
+# <<<<<<< HEAD
+# # #make it spicy
+
+# # >>>>>>> branch 'master' of git@github.com:montjlo/210.git
+
+# # =======
+# # #new state of production
+# # >>>>>>> branch 'master' of git@github.com:montjlo/210.git
+# =======
+# >>>>>>> branch 'master' of git@github.com:montjlo/210.git
+#>>>>>>> branch 'master' of git@github.com:montjlo/210.git
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
 #   max_cache_age: "1 hour"
