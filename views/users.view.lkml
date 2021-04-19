@@ -9,7 +9,16 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+#<<<<<<< HEAD
   #test_dev_commited
+#=======
+  #changes for test_dev
+
+  dimension: test_dev {
+    type: string
+    sql: "test" ;;
+  }
+#>>>>>>> branch 'master' of git@github.com:montjlo/210.git
 
   dimension: age{
     type: number
