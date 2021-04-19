@@ -4,9 +4,7 @@ connection: "the_look"
 include: "/views/**/*.view"
 include: "/*.dashboard"
 
-#commit commit more repro +++
-#test comment and more for fun and even more changes
-#another one - more changes
+
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
 #   max_cache_age: "1 hour"
@@ -24,7 +22,7 @@ include: "/*.dashboard"
 # }
 
 explore: connection_reg_r3 {}
-
+#change 2
 # access_grant: test {
 #   allowed_values: ["tehe"]
 #   user_attribute: locale
@@ -139,6 +137,7 @@ explore: user_data {
     relationship: many_to_one
   }
 }
+#changes 3
  explore: users {
   # conditionally_filter: {
   #   filters: [users.created_date: "yesterday to today"]
@@ -146,6 +145,7 @@ explore: user_data {
  }
 explore: users_from_sql_runner {}
 
+#explore: the_unknown {}
 
 # explore: users_2 {
 #   join: users {

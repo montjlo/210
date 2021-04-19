@@ -9,12 +9,15 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
-  #changes for test_dev
+  #test_dev_commited
 
   dimension: test_dev {
     type: string
     sql: "test" ;;
   }
+
+  #test for git actions
+
 
   dimension: age{
     type: number
