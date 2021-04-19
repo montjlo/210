@@ -9,6 +9,13 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  #changes for test_dev
+
+  dimension: test_dev {
+    type: string
+    sql: "test" ;;
+  }
+
   dimension: age{
     type: number
     sql: ${TABLE}.age ;;
