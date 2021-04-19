@@ -4,8 +4,8 @@ connection: "the_look"
 include: "/views/**/*.view"
 include: "/*.dashboard"
 
-#change 1
-#test comment
+#even other test comment
+#test comment and a change for good measure
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
 #   max_cache_age: "1 hour"
