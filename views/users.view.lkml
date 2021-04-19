@@ -9,6 +9,8 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  #test_dev_commited
+
   dimension: age{
     type: number
     sql: ${TABLE}.age ;;
