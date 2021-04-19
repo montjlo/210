@@ -4,8 +4,14 @@ connection: "the_look"
 include: "/views/**/*.view"
 include: "/*.dashboard"
 
+<<<<<<< HEAD
 #even other test comment
 #test comment and a change for good measure
+=======
+#commit commit more repro
+#test comment and more for fun
+#another one
+>>>>>>> branch 'master' of git@github.com:montjlo/210.git
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
 #   max_cache_age: "1 hour"
