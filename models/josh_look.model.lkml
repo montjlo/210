@@ -4,12 +4,7 @@ connection: "the_look"
 include: "/views/**/*.view"
 include: "/*.dashboard"
 
-#changes for merge conflict test
-#additional lines for conflight
-
-#make it spicy
-
-
+#new state of production
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
 #   max_cache_age: "1 hour"
