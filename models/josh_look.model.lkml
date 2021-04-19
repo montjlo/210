@@ -5,12 +5,18 @@ include: "/views/**/*.view"
 include: "/*.dashboard"
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 #even other test comment
 #test comment and a change for good measure
 =======
 #commit commit more repro
 #test comment and more for fun
 #another one
+>>>>>>> branch 'master' of git@github.com:montjlo/210.git
+=======
+#commit commit more repro +++
+#test comment and more for fun and even more changes
+#another one - more changes
 >>>>>>> branch 'master' of git@github.com:montjlo/210.git
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
