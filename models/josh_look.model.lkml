@@ -5,6 +5,7 @@ include: "/views/**/*.view"
 include: "/*.dashboard"
 
 
+#test comment
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
 #   max_cache_age: "1 hour"
@@ -16,6 +17,10 @@ include: "/*.dashboard"
 # }
 
 persist_with: josh_look_default_datagroup
+access_grant: drill_test {
+  allowed_values: ["drill"]
+  user_attribute: drill_test
+}
 
 explore: connection_reg_r3 {}
 
@@ -104,6 +109,16 @@ explore: orders {
   }
 }
 
+explore: orders_two {
+  from: orders
+  join: users {
+    type: left_outer
+    #sql_on: orders_two.user_id = users.id ;;
+    sql_on: ${orders_two.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
+}
+
 
 
 explore: saralooker {
@@ -128,6 +143,7 @@ explore: user_data {
   #   filters: [users.created_date: "yesterday to today"]
   # }
  }
+explore: users_from_sql_runner {}
 
 
 # explore: users_2 {

@@ -4,11 +4,12 @@ view: users {
 
   dimension: id {
     primary_key: yes
+    required_access_grants: [drill_test]
     type: number
     sql: ${TABLE}.id ;;
   }
 
-  dimension: age {
+  dimension: age{
     type: number
     sql: ${TABLE}.age ;;
   }
@@ -38,12 +39,14 @@ view: users {
     sql: ${TABLE}.city ;;
     hidden: yes
     #required_access_grants: [test]
+    group_label: "departure flight"
   }
 
   dimension: country {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+    group_label: "departure flight"
   }
 
   dimension_group: created {
@@ -53,6 +56,18 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
   }
+
+  dimension_group: date_label_test {
+    label: ""
+    group_label: "departure flight"
+    type: time
+    timeframes: [
+
+    ]
+    sql: ${TABLE}.created_at ;;
+  }
+
+
 
   dimension: min_date {
     type: yesno
@@ -113,6 +128,7 @@ view: users {
   }
 
   dimension: first_name {
+    required_access_grants: [drill_test]
     type: string
     sql: ${TABLE}.first_name ;;
     link: {
@@ -127,6 +143,7 @@ view: users {
   }
 
   dimension: last_name {
+    required_access_grants: [drill_test]
     type: string
     sql: ${TABLE}.last_name ;;
   }
@@ -144,6 +161,11 @@ view: users {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: running_total_users {
+    type: running_total
+    sql: ${count} ;;
   }
 
   measure: count_sabre_test {
