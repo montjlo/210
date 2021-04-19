@@ -4,17 +4,7 @@ connection: "the_look"
 include: "/views/**/*.view"
 include: "/*.dashboard"
 
-<<<<<<< HEAD
-#comment changes for merge conflict
-#comment changes for merge conflict
-#comment changes for merge conflict
-#comment changes for merge conflict
-#comment changes for merge conflict
-=======
-#this is a different comment
-#this is a different comment
-#this is a more different
->>>>>>> branch 'master' of git@github.com:montjlo/210.git
+
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
 #   max_cache_age: "1 hour"
