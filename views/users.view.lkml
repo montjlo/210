@@ -4,7 +4,7 @@ view: users {
 
   dimension: id {
     primary_key: yes
-    required_access_grants: [drill_test]
+    #required_access_grants: [drill_test]
     type: number
     sql: ${TABLE}.id ;;
   }
@@ -128,7 +128,7 @@ view: users {
   }
 
   dimension: first_name {
-    required_access_grants: [drill_test]
+    #required_access_grants: [drill_test]
     type: string
     sql: ${TABLE}.first_name ;;
     link: {
@@ -143,7 +143,7 @@ view: users {
   }
 
   dimension: last_name {
-    required_access_grants: [drill_test]
+    #required_access_grants: [drill_test]
     type: string
     sql: ${TABLE}.last_name ;;
   }

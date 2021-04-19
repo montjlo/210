@@ -16,11 +16,11 @@ include: "/*.dashboard"
 #   value_format:"[>=1000]\"\"0.00,\" GWh\";[<=-1000]\"\"-0.00,\" GWh\";\"\"0.00\" MWh\""
 # }
 
-persist_with: josh_look_default_datagroup
-access_grant: drill_test {
-  allowed_values: ["drill"]
-  user_attribute: drill_test
-}
+#persist_with: josh_look_default_datagroup
+# access_grant: drill_test {
+#   allowed_values: ["drill"]
+#   user_attribute: drill_test
+# }
 
 explore: connection_reg_r3 {}
 
