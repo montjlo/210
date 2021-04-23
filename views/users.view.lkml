@@ -24,6 +24,10 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+      # sql: CASE WHEN {% parameter suggest_param %} = 1 THEN ${state}
+    # WHEN {% parameter suggest_param %} = 2 THEN ${country}
+    # ELSE NULL END;;
+
   parameter: suggest_param {
     type: unquoted
     allowed_value: {value: "one"}
@@ -31,14 +35,11 @@ view: users {
   }
 
   dimension: filter_parameter_suggest {
-    # sql: CASE WHEN {% parameter suggest_param %} = 1 THEN ${state}
-    # WHEN {% parameter suggest_param %} = 2 THEN ${country}
-    # ELSE NULL END;;
     sql:
     {% if suggest_param._parameter_value == 'one' %}
       ${state}
-    {% elsif suggest_param._parameter_value == 'two' %}
-      ${city}
+    {% elsif suggest_param._parameter_value == "two" %}
+      ${country}
     {% else %}
       ${last_name}
     {% endif %}
@@ -49,7 +50,7 @@ view: users {
     type: string
     sql: ${state} ;;
     suggest_dimension: filter_parameter_suggest
-    suggest_persist_for: "0 seconds"
+    suggest_persist_for: "2 seconds"
   }
 
   measure: age_sum {
