@@ -24,13 +24,43 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+      # sql: CASE WHEN {% parameter suggest_param %} = 1 THEN ${state}
+    # WHEN {% parameter suggest_param %} = 2 THEN ${country}
+    # ELSE NULL END;;
+
+  parameter: suggest_param {
+    type: unquoted
+    allowed_value: {value: "one"}
+    allowed_value: {value: "two"}
+  }
+
+  dimension: filter_parameter_suggest {
+    sql:
+    {% if suggest_param._parameter_value == 'one' %}
+      ${state}
+    {% elsif suggest_param._parameter_value == "two" %}
+      ${country}
+    {% else %}
+      ${last_name}
+    {% endif %}
+    ;;
+  }
+
+  dimension: name_filter_test_three {
+    type: string
+    sql: ${state} ;;
+    suggest_dimension: filter_parameter_suggest
+    suggest_persist_for: "2 seconds"
+  }
+
   measure: age_sum {
     type: sum
     sql: ${age} ;;
   }
   measure: age_sum_2 {
     type: sum
-    sql: ${TABLE}.age ;;
+    sql: ${TABLE}.age -- AND comment
+    ;;
   }
 
   dimension: over_20 {
@@ -47,16 +77,13 @@ view: users {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
-    hidden: yes
-    #required_access_grants: [test]
-    group_label: "departure flight"
   }
 
   dimension: country {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
-    group_label: "departure flight"
+    #group_label: "departure flight"
   }
 
   dimension_group: created {
@@ -171,6 +198,12 @@ view: users {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_for_tooltip {
+    type: count
+    drill_fields: [detail*]
+    html: {{ state._value }} {{ value }} ;;
   }
 
   measure: running_total_users {
