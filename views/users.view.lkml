@@ -45,7 +45,7 @@ view: users {
     ;;
   }
 
-  dimension: name_filter_test_two {
+  dimension: name_filter_test_three {
     type: string
     sql: ${state} ;;
     suggest_dimension: filter_parameter_suggest
