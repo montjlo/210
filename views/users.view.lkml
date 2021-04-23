@@ -4,10 +4,20 @@ view: users {
 
   dimension: id {
     primary_key: yes
-    required_access_grants: [drill_test]
+    #required_access_grants: [drill_test]
     type: number
     sql: ${TABLE}.id ;;
   }
+
+  #test_dev_commited
+
+  dimension: test_dev {
+    type: string
+    sql: "test" ;;
+  }
+
+  #test for git actions
+
 
   dimension: age{
     type: number
@@ -154,7 +164,7 @@ view: users {
   }
 
   dimension: first_name {
-    required_access_grants: [drill_test]
+    #required_access_grants: [drill_test]
     type: string
     sql: ${TABLE}.first_name ;;
     link: {
@@ -169,7 +179,7 @@ view: users {
   }
 
   dimension: last_name {
-    required_access_grants: [drill_test]
+    #required_access_grants: [drill_test]
     type: string
     sql: ${TABLE}.last_name ;;
   }

@@ -4,8 +4,30 @@ connection: "the_look"
 include: "/views/**/*.view"
 include: "/*.dashboard"
 
+#test to push
+# <<<<<<< HEAD
+# #more test
+# # <<<<<<< HEAD
+# # <<<<<<< HEAD
+# # #pull requests required
+# # #bonus comment
+# # #another comment for good measure
+# # =======
+# # #changes for merge conflict test
+# # #additional lines for conflight
+# =======
+# >>>>>>> branch 'master' of git@github.com:montjlo/210.git
 
-#test comment
+# <<<<<<< HEAD
+# # #make it spicy
+
+# # >>>>>>> branch 'master' of git@github.com:montjlo/210.git
+
+# # =======
+# # #new state of production
+# # >>>>>>> branch 'master' of git@github.com:montjlo/210.git
+# =======
+# >>>>>>> branch 'master' of git@github.com:montjlo/210.git
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
 #   max_cache_age: "1 hour"
@@ -16,14 +38,14 @@ include: "/*.dashboard"
 #   value_format:"[>=1000]\"\"0.00,\" GWh\";[<=-1000]\"\"-0.00,\" GWh\";\"\"0.00\" MWh\""
 # }
 
-persist_with: josh_look_default_datagroup
-access_grant: drill_test {
-  allowed_values: ["drill"]
-  user_attribute: drill_test
-}
+#persist_with: josh_look_default_datagroup
+# access_grant: drill_test {
+#   allowed_values: ["drill"]
+#   user_attribute: drill_test
+# }
 
 explore: connection_reg_r3 {}
-
+#change 2
 # access_grant: test {
 #   allowed_values: ["tehe"]
 #   user_attribute: locale
@@ -138,6 +160,7 @@ explore: user_data {
     relationship: many_to_one
   }
 }
+#changes 3
  explore: users {
   # conditionally_filter: {
   #   filters: [users.created_date: "yesterday to today"]
@@ -145,6 +168,7 @@ explore: user_data {
  }
 explore: users_from_sql_runner {}
 
+#explore: the_unknown {}
 
 # explore: users_2 {
 #   join: users {
