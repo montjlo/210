@@ -48,7 +48,7 @@ view: users {
 
   dimension: name_filter_test_three {
     type: string
-    sql: ${state} ;;
+    sql: ${filter_parameter_suggest} ;;
     suggest_dimension: filter_parameter_suggest
     suggest_persist_for: "2 seconds"
   }
