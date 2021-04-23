@@ -45,11 +45,11 @@ view: users {
     ;;
   }
 
-  dimension: name_filter_test {
+  dimension: name_filter_test_two {
     type: string
     sql: ${state} ;;
     suggest_dimension: filter_parameter_suggest
-    suggest_persist_for: "1 seconds"
+    suggest_persist_for: "0 seconds"
   }
 
   measure: age_sum {
