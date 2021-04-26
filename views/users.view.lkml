@@ -28,6 +28,8 @@ view: users {
     # WHEN {% parameter suggest_param %} = 2 THEN ${country}
     # ELSE NULL END;;
 
+################ START field definitions for dynamic filter suggestions bug #####################
+
   parameter: suggest_param {
     type: unquoted
     allowed_value: {value: "one"}
@@ -110,6 +112,8 @@ view: users {
   #   suggest_dimension: filter_parameter_suggest
   #   suggest_persist_for: "2 seconds"
   # }
+
+  ################ END field definitions for dynamic filter suggestions bug #####################
 
   measure: age_sum {
     type: sum
