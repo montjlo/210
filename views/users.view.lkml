@@ -56,6 +56,53 @@ view: users {
     ;;
   }
 
+  dimension: filter_parameter_suggest_null {
+    sql:
+    {% if suggest_param._parameter_value == 'one' %}
+      ${state}
+    {% elsif suggest_param._parameter_value == "two" %}
+      ${country}
+    {% elsif suggest_param._parameter_value == null %}
+      ${email}
+    {% endif %}
+    ;;
+  }
+
+  dimension: filter_parameter_suggest_null_notnull {
+    sql:
+    {% if suggest_param._parameter_value == 'one' %}
+      ${state}
+    {% elsif suggest_param._parameter_value == "two" %}
+      ${country}
+    {% elsif suggest_param._parameter_value == null %}
+      ${email}
+    {% elsif suggest_param._parameter_value != null %}
+      ${gender}
+    {% endif %}
+    ;;
+  }
+
+  dimension: filter_parameter_suggest_null_notnull_else{
+    sql:
+    {% if suggest_param._parameter_value == 'one' %}
+      ${state}
+    {% elsif suggest_param._parameter_value == "two" %}
+      ${country}
+    {% elsif suggest_param._parameter_value == null %}
+      ${email}
+    {% elsif suggest_param._parameter_value != null %}
+      ${gender}
+    {% else %}
+      ${last_name}
+    {% endif %}
+    ;;
+  }
+
+  dimension: suggest_param_value {
+    sql:
+    "{{suggest_param._parameter_value}}"
+    ;;
+  }
 
   # dimension: name_filter_test_three {
   #   type: string
