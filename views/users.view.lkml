@@ -34,7 +34,7 @@ view: users {
     allowed_value: {value: "two"}
   }
 
-  dimension: filter_parameter_suggest {
+  dimension: filter_parameter_suggest_else {
     sql:
     {% if suggest_param._parameter_value == 'one' %}
       ${state}
@@ -46,12 +46,23 @@ view: users {
     ;;
   }
 
-  dimension: name_filter_test_three {
-    type: string
-    sql: ${filter_parameter_suggest} ;;
-    suggest_dimension: filter_parameter_suggest
-    suggest_persist_for: "2 seconds"
+  dimension: filter_parameter_suggest_end {
+    sql:
+    {% if suggest_param._parameter_value == 'one' %}
+      ${state}
+    {% elsif suggest_param._parameter_value == "two" %}
+      ${country}
+    {% endif %}
+    ;;
   }
+
+
+  # dimension: name_filter_test_three {
+  #   type: string
+  #   sql: ${filter_parameter_suggest} ;;
+  #   suggest_dimension: filter_parameter_suggest
+  #   suggest_persist_for: "2 seconds"
+  # }
 
   measure: age_sum {
     type: sum
@@ -198,6 +209,12 @@ view: users {
   measure: count {
     type: count
     drill_fields: [detail*]
+  }
+
+  measure: count_help {
+    type: number
+    sql: CASE WHEN ${count} IS NULL THEN 0
+    ELSE ${count} END;;
   }
 
   measure: count_for_tooltip {
