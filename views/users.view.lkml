@@ -37,10 +37,11 @@ view: users {
   }
 
   dimension: filter_parameter_suggest_else {
+    suggest_persist_for: "2 seconds"
     sql:
     {% if suggest_param._parameter_value == 'one' %}
       ${state}
-    {% elsif suggest_param._parameter_value == "two" %}
+    {% elsif suggest_param._parameter_value == 'two' %}
       ${country}
     {% else %}
       ${last_name}
@@ -49,20 +50,22 @@ view: users {
   }
 
   dimension: filter_parameter_suggest_end {
+    suggest_persist_for: "2 seconds"
     sql:
     {% if suggest_param._parameter_value == 'one' %}
       ${state}
-    {% elsif suggest_param._parameter_value == "two" %}
+    {% elsif suggest_param._parameter_value == 'two' %}
       ${country}
     {% endif %}
     ;;
   }
 
   dimension: filter_parameter_suggest_null {
+    suggest_persist_for: "2 seconds"
     sql:
     {% if suggest_param._parameter_value == 'one' %}
       ${state}
-    {% elsif suggest_param._parameter_value == "two" %}
+    {% elsif suggest_param._parameter_value == 'two' %}
       ${country}
     {% elsif suggest_param._parameter_value == null %}
       ${email}
@@ -71,10 +74,11 @@ view: users {
   }
 
   dimension: filter_parameter_suggest_null_notnull {
+    suggest_persist_for: "2 seconds"
     sql:
     {% if suggest_param._parameter_value == 'one' %}
       ${state}
-    {% elsif suggest_param._parameter_value == "two" %}
+    {% elsif suggest_param._parameter_value == 'two' %}
       ${country}
     {% elsif suggest_param._parameter_value == null %}
       ${email}
@@ -84,11 +88,12 @@ view: users {
     ;;
   }
 
-  dimension: filter_parameter_suggest_null_notnull_else{
+  dimension: filter_parameter_suggest_null_notnull_else {
+    suggest_persist_for: "2 seconds"
     sql:
     {% if suggest_param._parameter_value == 'one' %}
       ${state}
-    {% elsif suggest_param._parameter_value == "two" %}
+    {% elsif suggest_param._parameter_value == 'two' %}
       ${country}
     {% elsif suggest_param._parameter_value == null %}
       ${email}
