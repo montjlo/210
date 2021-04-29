@@ -28,10 +28,52 @@ view: users {
     # WHEN {% parameter suggest_param %} = 2 THEN ${country}
     # ELSE NULL END;;
 
+  measure: param_age {
+    type: sum
+    sql: CASE
+    WHEN {% parameter suggest_param %} = "one" THEN ${age}
+    WHEN {% parameter suggest_param %} = "two" THEN NULL
+    ELSE 1 END;;
+  }
+
+  measure: param_age_two {
+    type: number
+    sql: CASE
+          WHEN {% parameter suggest_param %} = "one" THEN ${age_sum}
+          WHEN {% parameter suggest_param %} = "two" THEN NULL
+          ELSE ${count} END;;
+  }
+
+  measure: param_age_liquid {
+    type: number
+    sql:
+    {% if suggest_param._parameter_value == 'one' %}
+      ${age_sum}
+    {% elsif suggest_param._parameter_value == 'two' %}
+      NULL
+    {% else %}
+      ${count}
+    {% endif %}
+    ;;
+  }
+
+  measure: param_age_liquid_two {
+    type: number
+    sql:
+    {% if suggest_param._parameter_value == 'one' %}
+      ${age_sum}
+    {% elsif suggest_param._parameter_value == 'two' %}
+      NULL
+    {% else %}
+      ${count}
+    {% endif %}
+    ;;
+  }
+
 ################ START field definitions for dynamic filter suggestions bug #####################
 
   parameter: suggest_param {
-    type: unquoted
+    type: string
     allowed_value: {value: "one"}
     allowed_value: {value: "two"}
   }

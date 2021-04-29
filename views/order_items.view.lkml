@@ -45,6 +45,13 @@ view: order_items {
     value_format: "$#.00;($#.00)"
   }
 
+  measure: sale_price_ua_test {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format: "$#.00;($#.00)"
+    #value_format: "{{_user_attributes['currency_value_format']}}#.00;($#.00)"
+  }
+
   measure: total_sale_price_format_test {
     type: sum
     sql: ${sale_price} ;;
