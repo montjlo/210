@@ -5,6 +5,7 @@ include: "/views/**/*.view"
 include: "/*.dashboard"
 
 #change from 21.0 for 21.4
+#more changes tests
 
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
