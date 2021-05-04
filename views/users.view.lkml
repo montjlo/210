@@ -9,7 +9,17 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
-  #test_dev_commited
+  #### string measure subtotal test ####
+  dimension: id_string {
+    type: string
+    sql: ${TABLE}.id ;;
+  }
+
+  measure: id_measure {
+    type: string
+    sql: ${id_string} ;;
+  }
+
 
   dimension: test_dev {
     type: string
