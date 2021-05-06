@@ -314,10 +314,10 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
-  dimension: over_30 {
-    type: yesno
-    sql: ${age}>30 ;;
-  }
+  # dimension: over_30 {
+  #   type: yesno
+  #   sql: ${age}>30 ;;
+  # }
 
 
   measure: count {
