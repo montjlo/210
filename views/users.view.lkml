@@ -17,7 +17,7 @@ view: users {
 
   measure: id_measure {
     type: string
-    sql: ${id_string} ;;
+    sql: ANY_VALUE(${id_string}) ;;
   }
 
 
