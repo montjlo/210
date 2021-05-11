@@ -22,6 +22,12 @@ view: orders {
     sql: ${TABLE}.created_at ;;
   }
 
+  dimension: picture {
+    type: string
+    sql: ${id} ;;
+    html: <img src="https://static.wikia.nocookie.net/gensin-impact/images/2/2d/Item_Qingxin.png/revision/latest?cb=20201125222236" width="50" height="50" /> ;;
+  }
+
   dimension: drill_status {
     #group_label: "dimension_店舗軸"
     label: "店舗館タイプ"
