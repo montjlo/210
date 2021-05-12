@@ -25,7 +25,7 @@ view: orders {
   dimension: picture {
     type: string
     sql: ${id} ;;
-    html: <img src="https://icons.iconarchive.com/icons/google/noto-emoji-travel-places/256/42652-sun-icon.png" width="30" height="30" /> ;;
+    html: <img src="https://icons.iconarchive.com/icons/google/noto-emoji-travel-places/256/42652-sun-icon.png" width="10" height="10" /> ;;
   }
 
   dimension: picture2 {
