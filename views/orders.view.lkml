@@ -25,7 +25,12 @@ view: orders {
   dimension: picture {
     type: string
     sql: ${id} ;;
-    html: <img src="https://static.wikia.nocookie.net/gensin-impact/images/2/2d/Item_Qingxin.png/revision/latest?cb=20201125222236" width="50" height="50" /> ;;
+    html: <img src="https://icons.iconarchive.com/icons/google/noto-emoji-travel-places/256/42652-sun-icon.png" width="30" height="30" /> ;;
+  }
+
+  dimension: picture2 {
+    sql: ${id} ;;
+    html: <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg/800px-The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg" width ="5" height = "5" />;;
   }
 
   dimension: drill_status {
