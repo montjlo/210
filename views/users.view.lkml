@@ -198,7 +198,7 @@ view: users {
 
   dimension_group: created {
     type: time
-    group_label: "{% if _model._name == 'josh_look' %} True Label {% else %} False Label {% endif %}"
+    group_label:  "True Label"
     timeframes: [
       raw,
       time,
@@ -214,7 +214,7 @@ view: users {
 
   dimension_group: deleted {
     type: time
-    group_label: "{% if _model._name == 'josh_look' %} True Label {% else %} False Label {% endif %}"
+    group_label: "{% if _model._name == 'josh_look' %} True Label {% else %} FalseLabel {% endif %}"
     timeframes: [
       raw,
       time,
@@ -308,6 +308,20 @@ view: users {
     type: count
     drill_fields: [detail*]
   }
+
+  # measure: count_row_liquid{
+  #     type: count
+  #     sql: case when ${country} = "test" THEN NULL
+  #     ELSE ${id} END;;
+  #     value_format_name: usd
+  #   html:
+  #   {% if row['users.age'] >= 40 %}
+  #   <a href="#drillmenu" target="_self">{{ rendered_value }}
+  #   {% else %}
+  #   <a href="#drillmenu" target="_self">{{ rendered_value }}*
+  #   {% endif %}
+  #   ;;
+  #   }
 
   measure: count_drill_fields_exclude {
     type: count
