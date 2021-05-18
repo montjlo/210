@@ -113,6 +113,9 @@ explore: order_items {
 }
 
 explore: orders {
+  always_filter: {
+    filters: [orders.status: "cancelled"]
+  }
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
