@@ -35,6 +35,27 @@ view: orders {
     sql: ${TABLE}.status ;;
   }
 
+  dimension: status_case {
+    type: string
+    case: {
+      when: {
+        sql: ${status} = "complete";;
+        label: "Complete - L"
+      }
+      when: {
+        sql: ${status} = "cancelled";;
+        label: "Cancelled - L"
+      }
+      else:" "
+    }
+  }
+
+  dimension: status_null {
+    type: string
+    sql: CASE WHEN ${status} = "pending" THEN ""
+    ELSE ${status_case} END;;
+    }
+
   dimension: user_id {
     type: number
     # hidden: yes

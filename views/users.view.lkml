@@ -172,15 +172,6 @@ view: users {
 
   ################ END field definitions for dynamic filter suggestions bug #####################
 
-  measure: age_sum {
-    type: sum
-    sql: ${age} ;;
-  }
-  measure: age_sum_2 {
-    type: sum
-    sql: ${TABLE}.age -- AND comment
-    ;;
-  }
 
   dimension: over_20 {
     type: yesno
@@ -207,31 +198,23 @@ view: users {
 
   dimension_group: created {
     type: time
+    group_label: "{% if _model._name == 'josh_look' %} True Label {% else %} False Label {% endif %}"
     timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
 
     ]
     sql: ${TABLE}.created_at ;;
-  }
-
-  dimension_group: date_label_test {
-    label: ""
-    group_label: "departure flight"
-    type: time
-    timeframes: [
-
-    ]
-    sql: ${TABLE}.created_at ;;
-  }
-
-
-
-  dimension: min_date {
-    type: yesno
-    sql: ${created_week}=MIN(${created_week}) ;;
   }
 
   dimension_group: deleted {
     type: time
+    group_label: "{% if _model._name == 'josh_look' %} True Label {% else %} False Label {% endif %}"
     timeframes: [
       raw,
       time,
@@ -244,15 +227,21 @@ view: users {
     sql: DATE_ADD(${TABLE}.created_at, INTERVAL 4 MONTH) ;;
   }
 
-  # measure: distinct_users {
-  #   type: count_distinct
-  #   sql: CASE WHEN ${deleted_raw}>${orders.created_raw} THEN ${id} ELSE NULL END ;;
-  # }
+  dimension_group: date_label_test {
+    group_label: "{% if _model._name == 'josh_look' %}
+    True Label {% else %} False Label {% endif %}"
+    type: time
+    timeframes: [
 
-  # measure: distinct_users_test {
-  #   type: count_distinct
-  #   sql: CASE WHEN ${deleted_raw}>${created_raw} THEN ${id} ELSE NULL END ;;
-  # }
+    ]
+    sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: min_date {
+    type: yesno
+    sql: ${created_week}=MIN(${created_week}) ;;
+  }
+
 
   dimension: today {
     type: date
@@ -266,17 +255,6 @@ view: users {
     ELSE 0 END;;
   }
 
-  measure: count_valid {
-    type: sum
-    sql: ${valid_user} ;;
-  }
-
-  measure: valid_user_m{
-    type: sum
-    sql:
-    CASE WHEN ${deleted_date}>=CURDATE() THEN 1
-    ELSE 0 END;;
-  }
 
   dimension: email {
     type: string
@@ -309,6 +287,12 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: state_hidden {
+    type: string
+    hidden: yes
+    sql: ${TABLE}.state ;;
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
@@ -325,6 +309,10 @@ view: users {
     drill_fields: [detail*]
   }
 
+  measure: count_drill_fields_exclude {
+    type: count
+    drill_fields: [detail*,-first_name]
+  }
   measure: count_help {
     type: number
     sql: CASE WHEN ${count} IS NULL THEN 0
@@ -353,12 +341,53 @@ view: users {
     </ul>;;
   }
 
+  measure: age_sum {
+    type: sum
+    sql: ${age} ;;
+  }
+  measure: age_sum_2 {
+    type: sum
+    sql: ${TABLE}.age -- AND comment
+      ;;
+  }
+
+  measure: count_valid {
+    type: sum
+    sql: ${valid_user} ;;
+  }
+
+  measure: valid_user_m{
+    type: sum
+    sql:
+    CASE WHEN ${deleted_date}>=CURDATE() THEN 1
+    ELSE 0 END;;
+  }
+
+    # measure: distinct_users {
+  #   type: count_distinct
+  #   sql: CASE WHEN ${deleted_raw}>${orders.created_raw} THEN ${id} ELSE NULL END ;;
+  # }
+
+  # measure: distinct_users_test {
+  #   type: count_distinct
+  #   sql: CASE WHEN ${deleted_raw}>${created_raw} THEN ${id} ELSE NULL END ;;
+  # }
+
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
       id,
       last_name,
       first_name,
+      events.count,
+      orders.count,
+      saralooker.count,
+      user_data.count
+    ]
+  }
+
+  set: detail_two {
+    fields: [
       events.count,
       orders.count,
       saralooker.count,
@@ -391,7 +420,7 @@ dimension: list_values_di {
 }
 
 parameter: label_test {
-  label: "{{users.state._value}}"
+  label: "{{state._value}}"
   allowed_value: {
     value: "label test dynamic value"
   }

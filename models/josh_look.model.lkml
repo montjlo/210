@@ -77,6 +77,16 @@ explore: inventory_items {
 }
 
 explore: order_items {
+  # aggregate_table: monthly_orders {
+  #   materialization: {
+  #     datagroup_trigger: orders_datagroup
+  #   }
+  #   query: {
+  #     dimensions: [orders.created_month]
+  #     measures: [users.detail_two*]
+  #     filters: [orders.created_date: "1 year", orders.status: "fulfilled"]
+  #   }
+  # }
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
@@ -146,6 +156,31 @@ explore: user_data {
   # }
  }
 explore: users_from_sql_runner {}
+
+# explore: event {
+
+# }
+
+explore: users_test {
+  from: users
+#   sql_always_where:
+# {% assign attribs = registered_user_intent_v.uc_list._parameter_value | split: "$" %}
+# {% assign att = "" %}
+# {% assign att = 'dw_eff_dt' | append:"$" | replace: "'" |
+# append: registered_user_intent_v.p_column1._parameter_value | append:"$" | replace: "'" |
+# append: registered_user_intent_v.p_column2._parameter_value | append:"$" | replace: "'" |
+# append: registered_user_intent_v.p_column3._parameter_value | append:"$" | replace: "'" |
+# append: registered_user_intent_v.p_column4._parameter_value | append:"$" | replace: "'" %}
+# {% for item in attribs %}
+# {% if registered_user_intent_v[item]._in_query %}
+# {% assign att = item | append:"$" | append:att %}
+# {% endif %}
+# {% endfor %}
+# {% assign att = "'" | append:att | append:"'" | replace: "No Selection$" | append:"dw_eff_dt_month" | replace: "_month" %}
+# {% assign uc = att | replace: "'" | split: "$" %}
+# (dimension_list_id = IFNULL(prod_report.data.dim_list_id_filter({{ uc | uniq | join: "$" | prepend:"'" | append: "'" }},'Global'),1) OR dimension_list_id = 1)
+# ;;
+}
 
 #explore: the_unknown {}
 
