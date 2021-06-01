@@ -287,6 +287,36 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: case_state {
+    case: {
+      when: {
+        label: "1. California"
+        sql: ${state} = "California" ;;
+      }
+      when: {
+        label: "2. Texas"
+        sql: ${state} = "Texas" ;;
+      }
+      when: {
+        label: "3. New York"
+        sql: ${state} = "New York" ;;
+      }
+      when: {
+        label: "4. Illinois"
+        sql: ${state} = "Illinois" ;;
+      }
+      when: {
+        label: "5. Florida"
+        sql: ${state} = "Florida" ;;
+      }
+      when: {
+        label: "6.Ohio"
+        sql: ${state} = "Ohio" ;;
+      }
+      else: "Other States"
+    }
+  }
+
   dimension: state_hidden {
     type: string
     hidden: yes

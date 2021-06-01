@@ -23,6 +23,13 @@ include: "/*.dashboard"
 #   user_attribute: drill_test
 # }
 
+map_layer: test {
+  file: "/topojson_files/countries_iso_3.json"
+  format: topojson
+  property_key: "Alpha-3 code"
+
+}
+
 explore: connection_reg_r3 {}
 #change 2
 # access_grant: test {
@@ -143,7 +150,7 @@ explore: saralooker {
   }
 }
 
-explore: schema_migrations {}
+explore: schema_migrations { label: "Migra"}
 
 explore: user_data {
   join: users {
