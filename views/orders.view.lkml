@@ -78,4 +78,9 @@ view: orders {
     type: count
     drill_fields: [id, users.last_name, users.id, users.first_name, order_items.count]
   }
+
+  measure: count_2 {
+    type: count
+    value_format: "[>=1000000]#,##0.0,, \"M€\";[>=1000]#,##0.0, \"K€\";#,##0.0 \"€\""
+  }
 }

@@ -18,6 +18,14 @@ view: products {
     sql: ${TABLE}.category ;;
   }
 
+  dimension: null_category {
+    type: string
+    sql: CASE
+    WHEN ${category} = "Accessories" THEN null
+      ELSE ${category}
+      END;;
+  }
+
   dimension: department {
     type: string
     sql: ${TABLE}.department ;;
