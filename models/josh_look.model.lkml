@@ -90,6 +90,10 @@ explore: order_items {
   #     filters: [orders.created_date: "1 year", orders.status: "fulfilled"]
   #   }
   # }
+  access_filter: {
+    user_attribute: institution_id
+    field: orders.user_id
+  }
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;

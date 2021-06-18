@@ -13,6 +13,7 @@ view: orders {
     timeframes: [
       raw,
       time,
+      day_of_week,
       date,
       week,
       month,
@@ -76,5 +77,10 @@ view: orders {
   measure: count {
     type: count
     drill_fields: [id, users.last_name, users.id, users.first_name, order_items.count]
+  }
+
+  measure: count_2 {
+    type: count
+    value_format: "[>=1000000]#,##0.0,, \"M€\";[>=1000]#,##0.0, \"K€\";#,##0.0 \"€\""
   }
 }
