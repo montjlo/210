@@ -1,4 +1,4 @@
-include: "/views/users.view"
+include: "/views/users_base.view"
 view: users_extend {
   extends: [users]
 

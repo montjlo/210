@@ -102,5 +102,26 @@ view: flights {
   measure: count {
     type: count
     drill_fields: []
+    # html: <p style="color: blue; font-size:25%"><a href="https://www.google.com"</a><u>Take me to Google</u></p> ;;
   }
+
+  # dimension: material_type_filter {
+  #   type: string
+  #   sql: "FG";;
+  #   label: "Material Type"
+  # }
+
+  # parameter: Material_Type_param {
+  #   default_value: "FG"
+  #   type: string
+  #   allowed_value: {label:"Finished Goods Only (FG)" value:"FG"}
+  #   allowed_value: {label:"Raw Materials Only (RM)" value:"RM"}
+  #   allowed_value: {label:"Upstream" value:"Upstream"}
+  # }
+
+  # dimension: Material_Type_Value {
+  #   sql: CASE WHEN {% parameter Material_Type_param %} = ${material_type_filter} THEN 'Show'
+  #   ELSE 'Hide' END ;;
+  # }
+
 }

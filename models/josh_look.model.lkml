@@ -2,8 +2,9 @@ connection: "the_look"
 
 # include all the views
 include: "/views/**/*.view"
-include: "/*.dashboard"
-
+# include: "/*.dashboard"
+include: "/views/flights_explore_extend.explore.lkml"
+include: "/users_extend.view.lkml"
 #change from 21.0 for 21.4
 #more changes tests
 
@@ -64,7 +65,9 @@ explore: products {
   hidden: yes
 }
 
-explore: flights {}
+# explore: flights_two {
+#   extends: [flights]
+# }
 
 explore: imgsrc1onerroralert2 {}
 
@@ -124,7 +127,14 @@ explore: orders {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
-  }
+    ###test for refine
+  #   fields: [
+  #     users.id,
+  #     age,
+  #     users.age_sum_test_refine,
+  #     users.age_plus_10,
+  #     users.age_plus_20]
+   }
 }
 
 explore: orders_two {
@@ -166,34 +176,4 @@ explore: users_from_sql_runner {}
 
 # explore: event {
 
-# }
-
-explore: users_test {
-  from: users
-#   sql_always_where:
-# {% assign attribs = registered_user_intent_v.uc_list._parameter_value | split: "$" %}
-# {% assign att = "" %}
-# {% assign att = 'dw_eff_dt' | append:"$" | replace: "'" |
-# append: registered_user_intent_v.p_column1._parameter_value | append:"$" | replace: "'" |
-# append: registered_user_intent_v.p_column2._parameter_value | append:"$" | replace: "'" |
-# append: registered_user_intent_v.p_column3._parameter_value | append:"$" | replace: "'" |
-# append: registered_user_intent_v.p_column4._parameter_value | append:"$" | replace: "'" %}
-# {% for item in attribs %}
-# {% if registered_user_intent_v[item]._in_query %}
-# {% assign att = item | append:"$" | append:att %}
-# {% endif %}
-# {% endfor %}
-# {% assign att = "'" | append:att | append:"'" | replace: "No Selection$" | append:"dw_eff_dt_month" | replace: "_month" %}
-# {% assign uc = att | replace: "'" | split: "$" %}
-# (dimension_list_id = IFNULL(prod_report.data.dim_list_id_filter({{ uc | uniq | join: "$" | prepend:"'" | append: "'" }},'Global'),1) OR dimension_list_id = 1)
-# ;;
-}
-
-#explore: the_unknown {}
-
-# explore: users_2 {
-#   join: users {
-#     type: left_outer
-#     sql_on: ${users.id}=${users_2.id} ;;
-#   }
 # }
