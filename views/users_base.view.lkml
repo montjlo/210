@@ -1,3 +1,5 @@
+#include: "users_refine_*.view.lkml"
+
 view: users {
   sql_table_name: demo_db.users ;;
   drill_fields: [id]
@@ -15,9 +17,26 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: pdt_def_test {
+    type: string
+    sql: "SELECT customer_id,MIN(DATE(time))"
+    "AS first_order,SUM(amount) AS total_amount FROM orders GROUP BY customer_id" ;;
+  }
+
   measure: id_measure {
     type: string
     sql: ANY_VALUE(${id_string}) ;;
+  }
+
+  dimension: label_me {
+    type: string
+    sql: "Hi" ;;
+  }
+
+  dimension: labled {
+    label: "{{label_me._value}}"
+    type: string
+    sql: "Hello" ;;
   }
 
 
@@ -32,6 +51,7 @@ view: users {
   dimension: age{
     type: number
     sql: ${TABLE}.age ;;
+    drill_fields: [detail*]
   }
 
       # sql: CASE WHEN {% parameter suggest_param %} = 1 THEN ${state}
@@ -198,23 +218,30 @@ view: users {
 
   dimension_group: created {
     type: time
-    group_label:  "True Label"
+    #group_label:  "True Label"
     timeframes: [
       raw,
       time,
       date,
       week,
+      week_of_year,
       month,
       quarter,
       year
-
     ]
     sql: ${TABLE}.created_at ;;
+    drill_fields: [detail*]
+  }
+
+  dimension: format_week {
+    type: number
+    sql: ${created_week_of_year} ;;
+    html: Week {{ value }} ;;
   }
 
   dimension_group: deleted {
     type: time
-    group_label: "{% if _model._name == 'josh_look' %} True Label {% else %} FalseLabel {% endif %}"
+    group_label: "{% if _model._name == 'josh_look' %}True Label{% else %}FalseLabel{% endif %}"
     timeframes: [
       raw,
       time,
@@ -228,8 +255,7 @@ view: users {
   }
 
   dimension_group: date_label_test {
-    group_label: "{% if _model._name == 'josh_look' %}
-    True Label {% else %} False Label {% endif %}"
+    group_label: "{% if _model._name == 'josh_look' %}True Label{% else %}False Label{% endif %}"
     type: time
     timeframes: [
 
@@ -303,11 +329,57 @@ view: users {
   #   sql: ${age}>30 ;;
   # }
 
+  dimension: zero {
+    type: number
+    sql: null ;;
+  }
+
+  measure: sum_coalesce {
+    type: sum
+    sql: COALESCE(${zero},0) ;;
+    value_format: "$[>=1000000]0.00,,\"M\";$[>=1000]0.00,\"K\";$00.00"
+    html:
+    {% if value != null %}
+    {{rendered_value}}
+    {% else %}
+    $00.00
+    {% endif %};;
+  }
+
+  measure: change1 {
+    type: count
+    html:{% if value >= 1000000 %}
+      ${{value | divided_by: 1000000 | round:2 }}M
+      {% else %}
+      ${{ value }}
+      {% endif %};;
+  }
+
+  # measure: change1 {
+  #   type: number
+  #   sql: ${current_week} - ${previous_week};;
+  #     html:{% if value >= 1000000 %}
+  #     ${{value | divided_by: 1000000 | round:2 }}M
+  #     {% else %}
+  #     {{
+  #     {% endif %};;
+  # }
+
 
   measure: count {
     type: count
     drill_fields: [detail*]
+
+    link: {
+      label: "Drill Test"
+      url: "{{ link }}&sorts=users.max_age+desc"
   }
+}
+
+measure: count_texas {
+  type: count
+  filters: [state: "Texas"]
+}
 
   # measure: count_row_liquid{
   #     type: count
@@ -377,6 +449,16 @@ view: users {
     ELSE 0 END;;
   }
 
+  measure: max_age {
+    type: max
+    sql: ${age} ;;
+  }
+
+  dimension: age_sum_test_refine {
+    type: number
+    sql: ${age}+${users.age_plus_10} ;;
+  }
+
     # measure: distinct_users {
   #   type: count_distinct
   #   sql: CASE WHEN ${deleted_raw}>${orders.created_raw} THEN ${id} ELSE NULL END ;;
@@ -390,22 +472,39 @@ view: users {
   # ----- Sets of fields for drilling ------
   set: detail {
     fields: [
-      id,
-      last_name,
-      first_name,
+
+      created_month,
+      count,
+      max_age,
       events.count,
       orders.count,
       saralooker.count,
       user_data.count
     ]
   }
+  # fields: [
+  #   id,
+  #   last_name,
+  #   first_name,
+  #   age,
+  #   count,
+  #   max_age,
+  #   events.count,
+  #   orders.count,
+  #   saralooker.count,
+  #   user_data.count
+  # ]
+
+
+
 
   set: detail_two {
     fields: [
       events.count,
       orders.count,
       saralooker.count,
-      user_data.count
+      user_data.count,
+      users.age_plus_10
     ]
   }
 
@@ -462,6 +561,14 @@ dimension: multivalue_test {
 dimension: state_space {
   type: string
   sql: CONCAT(${state}," ") ;;
+}
+
+parameter: condition_test {
+  type: string
+}
+
+dimension: age_condition_param_test {
+  sql: ${age} > {% parameter condition_test %} ;;
 }
 
 }

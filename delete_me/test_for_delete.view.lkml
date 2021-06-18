@@ -1,4 +1,17 @@
 view: test_for_delete {
+
+  # https://commercedevncr.cloud.looker.com/looks/202?
+  # f[fact_business_approver.BusinessDate]=30+days+ago+for+30+days%20%20%20%20%20%20&
+  # f[dim_stores.store_name]=Megadeal%20%20%20%20%20%20&f[fact_business_approver.approvers]
+  # =#%3CLooker::FieldDrop:0x788ff0c9%3E%20%20%20%20%20%20%20%20%20%20%20%20&
+  # f[fact_business_approver.action_type]=ApprovalRequired&f[fact_business_approver.is_approved]=yes
+
+  # https://commercedevncr.cloud.looker.com/looks/202?
+  # f[fact_business_approver.BusinessDate]=30+days+ago+for+30+days%20%20%20%20%20%20&
+  # f[dim_stores.store_name]=Megadeal%20%20%20%20%20%20&f[fact_business_approver.approvers]
+  # =Lucia%20%20Es*****%20%20%20%20%20%20%20%20%20%20%20%20&
+  # f[fact_business_approver.action_type]=ApprovalRequired&f[fact_business_approver.is_approved]=yes
+
   # # You can specify the table name if it's different from the view name:
   # sql_table_name: my_schema_name.tester ;;
   #
