@@ -207,6 +207,7 @@ view: users {
   dimension: city {
     type: string
     sql: ${TABLE}.city ;;
+    html: {{ rendered_value }} ;;
   }
 
   dimension: country {
@@ -231,6 +232,11 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
     drill_fields: [detail*]
+  }
+
+  dimension: date_diff {
+    type:  number
+    sql: DATEDIFF(${users.created_date},date("2021-02-15")) ;;
   }
 
   dimension: format_week {
@@ -467,6 +473,172 @@ measure: count_texas {
   dimension: age_sum_test_refine {
     type: number
     sql: ${age}+${users.age_plus_10} ;;
+  }
+
+  measure: distinct_last_names {
+    type:count_distinct
+    sql:  ${last_name};;
+  }
+
+  measure: distinct_first_names {
+    type:count_distinct
+    sql:  ${first_name};;
+  }
+
+  dimension: custom_error {
+    type: string
+    sql:
+    {% if unit_select._in_query == false %}
+
+    {% elsif unit_select._in_query %}
+    "All is well"
+    {% endif %}
+    ;;
+  }
+
+  dimension: custom_error_2 {
+    type: string
+    sql:
+    {% if unit_select._in_query == false %}
+    "Requires Unit Select parameter value"
+    {% elsif unit_select._in_query %}
+    "All is well"
+    {% endif %}
+    ;;
+  }
+
+  parameter: unit_select {
+    type: unquoted
+    allowed_value: {
+      label: "Units"
+      value: "1s"
+    }
+    allowed_value: {
+      label: "Tens"
+      value: "10s"
+    }
+    allowed_value: {
+      label: "Hundreds"
+      value: "100s"
+    }
+    allowed_value: {
+      label: "Thousands"
+      value: "1000s"
+    }
+  }
+
+  measure: error_message {
+    sql:
+    {% if unit_select._in_query == false %}
+    custom_error_message("Error: Requires Unit Select parameter value")
+
+    -- BQ: "Custom Error Message"."Error: Requires Unit Select parameter value"
+    -- SNOWFLAKE: custom_error_message.Requires_Unit_Select_Parameter
+    -- Redshift: ANY_VALUE("custom.error.message.Requires_Unit_Select_parameter_value")
+    -- Redshift: custom_error_message_Requires_Unit_Select_Parameter()
+    {% elsif unit_select._in_query %}
+    1=1
+    {% endif %}
+    ;;
+  }
+
+  measure: dynamic_measure_one {
+    type: number
+    sql:
+    {% if unit_select._parameter_value == "1s" %}
+    ${count}
+    {% elsif unit_select._parameter_value == "10s" %}
+    ${count}/10
+    {% elsif unit_select._parameter_value == "100s" %}
+    ${count}/100
+    {% elsif unit_select._parameter_value == "1000s" %}
+    ${count}/1000
+    {% endif %}
+    ;;
+    required_fields: [error_message]
+  }
+
+
+      # sql:
+    # {% if unit_select._in_query == false %}
+    # ${}"Requires Unit Select parameter value"
+    # {% elsif unit_select._parameter_value == "1s" %}
+    # ${count}
+    # {% elsif unit_select._parameter_value == "10s" %}
+    # ${count}/10
+    # {% elsif unit_select._parameter_value == "100s" %}
+    # ${count}/100
+    # {% elsif unit_select._parameter_value == "1000s" %}
+    # ${count}/1000
+    # {% endif %}
+    # ;;
+
+  measure: dynamic_measure_one_unless {
+    type: number
+    sql:
+    {% unless unit_select._in_query %}
+    ${}"Requires Unit Select parameter value"
+    {% elsif unit_select._parameter_value == "1s" %}
+    ${count}
+    {% elsif unit_select._parameter_value == "10s" %}
+    ${count}/10
+    {% elsif unit_select._parameter_value == "100s" %}
+    ${count}/100
+    {% elsif unit_select._parameter_value == "1000s" %}
+    ${count}/1000
+    {% endunless %}
+    ;;
+  }
+
+  measure: dynamic_measure_two {
+    type: number
+    sql:
+    {% if unit_select._parameter_value == "1s" %}
+    ${age_sum}
+    {% elsif unit_select._parameter_value == "10s" %}
+    ${age_sum}/10
+    {% elsif unit_select._parameter_value == "100s" %}
+    ${age_sum}/100
+    {% elsif unit_select._parameter_value == "1000s" %}
+    ${age_sum}/1000
+    {% else %}
+    "Requires Unit Select parameter value"${}
+    {% endif %}
+    ;;
+}
+
+  measure: dynamic_measure_three {
+    type:number
+    sql:
+    {% if unit_select._parameter_value == "1s" %}
+    ${distinct_last_names}
+    {% elsif unit_select._parameter_value == "10s" %}
+    ${distinct_last_names}/10
+    {% elsif unit_select._parameter_value == "100s" %}
+    ${distinct_last_names}/100
+    {% elsif unit_select._parameter_value == "1000s" %}
+    ${distinct_last_names}/1000
+    {% else %}
+    "Requires Unit Select parameter value"${}
+    {% endif %}
+    ;;
+}
+
+  measure: dynamic_measure_four {
+    type:number
+    sql:
+    {% if unit_select._parameter_value == "1s" %}
+    ${distinct_first_names}
+    {% elsif unit_select._parameter_value == "10s" %}
+    ${distinct_first_names}/10
+    {% elsif unit_select._parameter_value == "100s" %}
+    ${distinct_first_names}/100
+    {% elsif unit_select._parameter_value == "1000s" %}
+    ${distinct_first_names}/1000
+    {% else %}
+    "Requires Unit Select parameter value"${}
+    {% endif %}
+    ;;
   }
 
     # measure: distinct_users {

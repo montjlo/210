@@ -65,9 +65,9 @@ explore: products {
   hidden: yes
 }
 
-# explore: flights_two {
-#   extends: [flights]
-# }
+explore: flights_two {
+  extends: [flights]
+}
 
 explore: imgsrc1onerroralert2 {}
 
@@ -80,17 +80,6 @@ explore: inventory_items {
 }
 
 explore: order_items {
-  # aggregate_table: monthly_orders {
-  #   materialization: {
-  #     datagroup_trigger: orders_datagroup
-  #   }
-  #   query: {
-  #     dimensions: [orders.created_month]
-  #     measures: [users.detail_two*]
-  #     filters: [orders.created_date: "1 year", orders.status: "fulfilled"]
-  #   }
-  # }
-
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
