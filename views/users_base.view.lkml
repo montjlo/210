@@ -313,6 +313,16 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  dimension: state_drill {
+    type: string
+    sql: ${TABLE}.state ;;
+    drill_fields: [city]
+    link: {
+      label: "drill test"
+      url: "/explore/josh_look/users?fields=users.state,users.city&f[users.state]={{value}}"
+    }
+  }
+
   dimension: state_hidden {
     type: string
     hidden: yes

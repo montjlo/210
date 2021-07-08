@@ -23,6 +23,14 @@ view: orders {
     sql: ${TABLE}.created_at ;;
   }
 
+  parameter: liquid_test {
+    type: unquoted
+    allowed_value: {
+      label: "default"
+      value: "one"
+    }
+  }
+
   dimension: picture {
     type: string
     sql: ${id} ;;

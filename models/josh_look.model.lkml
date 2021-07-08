@@ -90,10 +90,7 @@ explore: order_items {
   #     filters: [orders.created_date: "1 year", orders.status: "fulfilled"]
   #   }
   # }
-  access_filter: {
-    user_attribute: institution_id
-    field: orders.user_id
-  }
+
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
@@ -139,6 +136,12 @@ explore: orders {
 
 explore: orders_two {
   from: orders
+  sql_always_where:
+  {% if orders_two.liquid_test._parameter_value == 'one' %}
+  1=1
+  {% else %}
+  ${users.age}>20
+  {% endif %};;
   join: users {
     type: left_outer
     #sql_on: orders_two.user_id = users.id ;;
@@ -147,7 +150,21 @@ explore: orders_two {
   }
 }
 
-
+explore: orders_three {
+  from: orders
+  sql_always_where:
+  {% if orders_three.liquid_test._parameter_value == 'one' %}
+  1=1
+  {% else %}
+  2=2
+  {% endif %};;
+  join: users {
+    type: left_outer
+    #sql_on: orders_two.user_id = users.id ;;
+    sql_on: ${orders_three.user_id} = ${users.id} ;;
+    relationship: many_to_one
+  }
+}
 
 explore: saralooker {
   join: users {
