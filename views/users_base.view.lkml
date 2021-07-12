@@ -236,16 +236,7 @@ view: users {
 
   dimension_group: created_tz_converted {
     type: time
-    timeframes: [
-      raw,
-      time,
-      date,
-      week,
-      week_of_year,
-      month,
-      quarter,
-      year
-    ]
+    timeframes: []
     sql: CONVERT_TZ(${TABLE}.created_at,'UTC','US/Pacific') ;;
     #sql: at_timezone(${TABLE}.created_at, 'America/Chicago') ;;
     drill_fields: [detail*]
