@@ -134,7 +134,14 @@ explore: orders_two {
   join: users {
     type: left_outer
     #sql_on: orders_two.user_id = users.id ;;
-    sql_on: ${orders_two.user_id} = ${users.id} ;;
+    sql:
+
+  {% if orders_two.liquid_test._parameter_value == 'one' %}
+   -- lol
+  {% else %}
+  ${orders_two.user_id} = ${users.id}
+  {% endif %}
+  ;;
     relationship: many_to_one
   }
 }
