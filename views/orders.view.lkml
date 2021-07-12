@@ -34,12 +34,18 @@ view: orders {
   dimension: picture {
     type: string
     sql: ${id} ;;
-    html: <a href="/dashboards-next/264"><img src="https://icons.iconarchive.com/icons/google/noto-emoji-travel-places/256/42652-sun-icon.png" width="10" height="10" />Main Menu</a> ;;
+    html: <a href="/dashboards-next/264"><img src="https://icons.iconarchive.com/icons/google/noto-emoji-travel-places/256/42652-sun-icon.png" width="20" height="20" />Main Menu</a> ;;
+  }
+
+  dimension: picture_svg {
+    type: string
+    sql: ${id} ;;
+    html: <a href="/dashboards-next/264"><img src = "https://openclipart.org/download/194282/mail-envelope-blue.svg" width ="20" height = "20" />Main Menu</a> ;;
   }
 
   dimension: picture2 {
     sql: ${id} ;;
-    html: <img src = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b4/The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg/800px-The_Sun_by_the_Atmospheric_Imaging_Assembly_of_NASA%27s_Solar_Dynamics_Observatory_-_20100819.jpg" width ="5" height = "5" />;;
+    html: <img src = "https://openclipart.org/download/194282/mail-envelope-blue.svg" width ="5" height = "5" />;;
   }
 
   dimension: drill_status {
