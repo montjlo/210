@@ -234,6 +234,17 @@ view: users {
     drill_fields: [detail*]
   }
 
+  # dimension: test_date_for_list {
+  #   type: string
+  #   sql: ${created_time} ;;
+  #   order_by_field: created_year
+  # }
+
+  # measure: datelist {
+  #   type: list
+  #   sql: ${test_date_for_list} ;;
+  # }
+
   dimension: date_diff {
     type:  number
     sql: DATEDIFF(${users.created_date},date("2021-02-15")) ;;
