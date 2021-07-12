@@ -34,13 +34,13 @@ view: orders {
   dimension: picture {
     type: string
     sql: ${id} ;;
-    html: <a href="/dashboards-next/264"><img src="https://icons.iconarchive.com/icons/google/noto-emoji-travel-places/256/42652-sun-icon.png" width="20" height="20" />Main Menu</a> ;;
+    html: <a href="/dashboards-next/264"><img src="https://icons.iconarchive.com/icons/google/noto-emoji-travel-places/256/42652-sun-icon.png" width="50" height="50" />Main Menu</a> ;;
   }
 
   dimension: picture_svg {
     type: string
     sql: ${id} ;;
-    html: <a href="/dashboards-next/264"><img src = "https://openclipart.org/download/194282/mail-envelope-blue.svg" width ="20" height = "20" />Main Menu</a> ;;
+    html: <a href="/dashboards-next/264"><img src = "https://openclipart.org/download/194282/mail-envelope-blue.svg" width ="50" height = "50" />Main Menu</a> ;;
   }
 
   dimension: picture2 {
