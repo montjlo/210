@@ -23,6 +23,11 @@ view: orders {
     sql: ${TABLE}.created_at ;;
   }
 
+dimension: date_test {
+  type: date
+  sql: ${TABLE}.created_at ;;
+
+}
   parameter: liquid_test {
     type: unquoted
     allowed_value: {
