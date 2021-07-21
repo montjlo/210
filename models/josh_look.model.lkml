@@ -40,14 +40,13 @@ explore: events {
     sql_on: ${events.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
-#   sql_always_where:
-#   {% if fct_opportunity.valid_start._is_filtered AND fct_opportunity.valid_end._is_filtered %}
-#   ${subscription_start_date} >= {% parameter fct_opportunity.valid_start %}
-# AND ${subscription_end_date}<={% parameter fct_opportunity.valid_end %}
-# {% else %}
-# 1=1
-# {% endif %}
-#   ;;
+  sql_always_where:
+  {% if users.name != null %}
+2=2
+{% else %}
+1=1
+{% endif %}
+  ;;
 
 #   sql_always_where:
 #   {% if fct_opportunity.valid_start._is_filtered AND fct_opportunity.valid_end._is_filtered %}
@@ -161,6 +160,16 @@ explore: orders_three {
     relationship: many_to_one
   }
 }
+
+explore: orders_four {
+  from: orders
+  sql_always_where:
+ {% condition orders_four.status %} ${status} {% endcondition %}
+AND {% condition orders_four.status %} ${status_image} {% endcondition %};;
+}
+
+#{% condition orders_four.one_one %} ${orders_four.liquid_test} {% endcondition %}
+#{% parameter orders_four.liquid_test %} = {% condition orders_four.one_one %} one_one {% endcondition %}
 
 explore: saralooker {
   join: users {

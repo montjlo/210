@@ -40,9 +40,11 @@ view: users {
   }
 
 
-  dimension: test_dev {
+  dimension: suggest_dimension {
     type: string
     sql: "test" ;;
+    suggest_dimension: first_name
+    suggest_explore: users
   }
 
   #test for git actions
@@ -232,14 +234,14 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
     drill_fields: [detail*]
+    order_by_field: city
   }
 
   dimension_group: created_tz_converted {
     type: time
     timeframes: []
     sql: CONVERT_TZ(${TABLE}.created_at,'UTC','US/Pacific') ;;
-    #sql: at_timezone(${TABLE}.created_at, 'America/Chicago') ;;
-    drill_fields: [detail*]
+    drill_fields: [detail_0*]
     convert_tz: no
   }
 
@@ -267,7 +269,6 @@ view: users {
 
   dimension_group: deleted {
     type: time
-    group_label: "{% if _model._name == 'josh_look' %}True Label{% else %}FalseLabel{% endif %}"
     timeframes: [
       raw,
       time,
@@ -277,7 +278,7 @@ view: users {
       quarter,
       year
     ]
-    sql: DATE_ADD(${TABLE}.created_at, INTERVAL 4 MONTH) ;;
+    sql: DATE_ADD(${TABLE}.created_at, INTERVAL 3 YEAR) ;;
   }
 
   dimension_group: date_label_test {
@@ -404,7 +405,7 @@ view: users {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
+    drill_fields: [detail_0*]
 
     link: {
       label: "Drill Test"
@@ -684,19 +685,22 @@ measure: count_texas {
       user_data.count
     ]
   }
-  # fields: [
-  #   id,
-  #   last_name,
-  #   first_name,
-  #   age,
-  #   count,
-  #   max_age,
-  #   events.count,
-  #   orders.count,
-  #   saralooker.count,
-  #   user_data.count
-  # ]
 
+  set: detail_0 {
+  fields: [
+    created_tz_converted_hour,
+    id,
+    last_name,
+    first_name,
+    age,
+    count,
+    max_age,
+    events.count,
+    orders.count,
+    saralooker.count,
+    user_data.count
+  ]
+  }
 
 
 

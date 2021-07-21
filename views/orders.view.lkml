@@ -24,11 +24,15 @@ view: orders {
   }
 
   parameter: liquid_test {
-    type: unquoted
+    type: string
     allowed_value: {
       label: "default"
-      value: "one"
+      value: "complete"
     }
+  }
+
+  filter: one_one {
+    type: string
   }
 
   dimension: picture {
