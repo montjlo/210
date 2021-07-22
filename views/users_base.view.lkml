@@ -56,6 +56,13 @@ view: users {
     drill_fields: [detail*]
   }
 
+  dimension: hiddenAge{
+    hidden: yes
+    type: number
+    sql: ${TABLE}.age ;;
+    drill_fields: [detail*]
+  }
+
       # sql: CASE WHEN {% parameter suggest_param %} = 1 THEN ${state}
     # WHEN {% parameter suggest_param %} = 2 THEN ${country}
     # ELSE NULL END;;
