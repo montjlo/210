@@ -244,6 +244,21 @@ view: users {
     order_by_field: city
   }
 
+  dimension_group: html_table_pdf {
+    type: time
+    timeframes: [
+      raw,
+      time,
+      date,
+      week,
+      month,
+      quarter,
+      year
+    ]
+    sql: ${TABLE}.created_at ;;
+    html: {{ rendered_value | date: "%d-%b-%Y %H:%M" }} ;;
+  }
+
   dimension_group: created_tz_converted {
     type: time
     timeframes: []
