@@ -60,9 +60,9 @@ explore: events {
 #   {% endif %}
 #   ;;
 }
-# explore: products {
-#   hidden: yes
-# }
+explore: products {
+  hidden: yes
+}
 
 explore: flights_two {
   extends: [flights]
