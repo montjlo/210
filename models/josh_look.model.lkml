@@ -188,14 +188,8 @@ explore: user_data {
     relationship: many_to_one
   }
 }
-#changes 3
- explore: users {
-  # conditionally_filter: {
-  #   filters: [users.created_date: "yesterday to today"]
-  # }
- }
+
+explore: users {}
+
+
 explore: users_from_sql_runner {}
-
-# explore: event {
-
-# }
