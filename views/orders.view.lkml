@@ -6,6 +6,8 @@ view: orders {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    html:  <p style="color: black; font-size:175%">{{ rendered_value }}</p> ;;
+
   }
 
   dimension_group: created {
@@ -63,6 +65,7 @@ view: orders {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+
   }
 
   dimension: status_case {

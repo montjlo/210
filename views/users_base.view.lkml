@@ -56,6 +56,39 @@ view: users {
     drill_fields: [detail*]
   }
 
+  dimension: price_rating_group {
+    type: string
+    case: {
+      when: {
+        label: "$"
+        sql: ${age} < 20 ;;
+      }
+      when: {
+        label: "$$"
+        sql:  ${age} >= 20 AND ${age} <= 40 ;;
+      }
+      when: {
+        label: "$$$"
+        sql:${age} >= 41 AND ${age} <= 50 ;;
+      }
+      when: {
+        label: "$$$$"
+        sql:${age} >= 51 ;;
+      }
+    }
+
+  }
+
+  dimension: price_rating_group2 {
+    type: string
+    sql: CASE WHEN ${age} < 20 THEN "$"
+    WHEN ${age} >= 20 AND ${age} <= 40 THEN "$$"
+    WHEN ${age} >= 41 AND ${age} <= 50 THEN "$$$"
+    ELSE "$$$$"
+    END ;;
+
+  }
+
   dimension: hiddenAge{
     hidden: yes
     type: number
@@ -217,6 +250,13 @@ view: users {
     type: string
     sql: ${TABLE}.city ;;
     html: {{ rendered_value }} ;;
+
+  }
+
+  measure: user_cities {
+    type: string
+    sql: ${city} ;;
+    order_by_field: count
   }
 
   dimension: country {
@@ -360,6 +400,7 @@ view: users {
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
+    description: "idk"
   }
 
   dimension: state_drill {
@@ -471,6 +512,7 @@ view: users {
   measure: count {
     type: count
     drill_fields: [detail_0*]
+    description: "testing"
 
     link: {
       label: "Drill Test"

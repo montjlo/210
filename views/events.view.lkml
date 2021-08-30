@@ -6,6 +6,7 @@ view: events {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    html:  <p style= font-size: 50%>{{ rendered_value | date: "%b %Y" }}</p> ;;
   }
 
   dimension_group: created {
