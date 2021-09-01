@@ -281,7 +281,7 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
     drill_fields: [detail*]
-    order_by_field: city
+   #order_by_field: city
   }
 
   dimension_group: html_table_pdf {
