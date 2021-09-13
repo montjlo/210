@@ -105,6 +105,22 @@ view: flights {
     # html: <p style="color: blue; font-size:25%"><a href="https://www.google.com"</a><u>Take me to Google</u></p> ;;
   }
 
+  measure: filtered_count {
+    type: count
+    filters: [arr_date: "-NULL", carrier: "NW"]
+  }
+
+  measure: sum {
+    type: sum
+    sql: ${dep_delay} ;;
+  }
+
+  measure: filtered_sum {
+    type: sum
+    sql: ${dep_delay} ;;
+    filters: [arr_date: "-NULL"]
+  }
+
   # dimension: material_type_filter {
   #   type: string
   #   sql: "FG";;

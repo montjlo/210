@@ -281,7 +281,6 @@ view: users {
     ]
     sql: ${TABLE}.created_at ;;
     drill_fields: [detail*]
-    order_by_field: city
   }
 
   dimension_group: html_table_pdf {
@@ -419,9 +418,52 @@ view: users {
     sql: ${TABLE}.state ;;
   }
 
+  parameter: map_layer {
+    type: unquoted
+    allowed_value: {
+      label: "us zip"
+      value: "zip"
+    }
+    allowed_value: {
+      label: "countries"
+      value: "countries"
+    }
+    allowed_value: {
+      label: "states"
+      value: "states"
+    }
+  }
+
+  dimension: map_layer_selector {
+    sql:
+    {% if map_layer._parameter_value == 'zip' %}
+    ${zip}
+    {% elsif map_layer._parameter_value == 'states' %}
+    ${state_map}
+    {% else %}
+    ${country_map}
+    {% endif %}
+    ;;
+    map_layer_name: countries
+    required_fields: [zip]
+  }
+
+  dimension: country_map {
+    type: string
+    sql: ${country} ;;
+    map_layer_name: countries
+  }
+
   dimension: zip {
     type: zipcode
     sql: ${TABLE}.zip ;;
+    map_layer_name: us_zipcode_tabulation_areas
+  }
+
+  dimension: state_map {
+    type: string
+    sql: ${state} ;;
+    map_layer_name: us_states
   }
 
   # dimension: over_30 {
