@@ -5,6 +5,7 @@ include: "/views/**/*.view"
 # include: "/*.dashboard"
 include: "/views/flights_explore_extend.explore.lkml"
 include: "/users_extend.view.lkml"
+include: "/move_lookml_dash.dashboard"
 
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
@@ -69,6 +70,47 @@ explore: inventory_items {
 }
 
 explore: order_items {
+  query: query_1 {
+    dimensions: [orders.status]
+  }
+  query: query_2 {
+    dimensions: [orders.status]
+  }
+  query: query_3 {
+    dimensions: [orders.status]
+  }
+  query: query_4 {
+    dimensions: [orders.status]
+  }
+  query: query_5 {
+    dimensions: [orders.status]
+  }
+  query: query_6 {
+    dimensions: [orders.status]
+  }
+  query: query_7 {
+    dimensions: [orders.status]
+  }
+  query: query_8 {
+    dimensions: [orders.status]
+  }
+  query: query_9 {
+    dimensions: [orders.status]
+  }
+  query: query_10 {
+    dimensions: [orders.status]
+  }
+  query: query_11 {
+    dimensions: [orders.status]
+  }
+  query: query_12 {
+    dimensions: [orders.status]
+  }
+
+
+
+
+
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
