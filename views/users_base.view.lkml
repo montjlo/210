@@ -56,6 +56,14 @@ view: users {
     drill_fields: [detail*]
   }
 
+  dimension: age_tier {
+    type: tier
+    tiers: [0,5,20,50,100]
+    style: integer
+    sql: ${age} ;;
+    value_format: "$#,#0.00"
+  }
+
   dimension: price_rating_group {
     type: string
     case: {
