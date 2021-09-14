@@ -1,12 +1,13 @@
 view: orders {
   sql_table_name: demo_db.orders ;;
-  drill_fields: [id]
+ # drill_fields: [id]
 
   dimension: id {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
-    html:  <p style="color: black; font-size:175%">{{ rendered_value }}</p> ;;
+    drill_fields: [id, count]
+    #html:  <p style="color: black; font-size:175%">{{ rendered_value }}</p> ;;
 
   }
 
@@ -65,6 +66,7 @@ view: orders {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
+    drill_fields: [status,created_date, count]
 
   }
 
