@@ -701,22 +701,22 @@ measure: count_texas {
     # {% endif %}
     # ;;
 
-  measure: dynamic_measure_one_unless {
-    type: number
-    sql:
-    {% unless unit_select._in_query %}
-    ${}"Requires Unit Select parameter value"
-    {% elsif unit_select._parameter_value == "1s" %}
-    ${count}
-    {% elsif unit_select._parameter_value == "10s" %}
-    ${count}/10
-    {% elsif unit_select._parameter_value == "100s" %}
-    ${count}/100
-    {% elsif unit_select._parameter_value == "1000s" %}
-    ${count}/1000
-    {% endunless %}
-    ;;
-  }
+  # measure: dynamic_measure_one_unless {
+  #   type: number
+  #   sql:
+  #   {% unless unit_select._in_query %}
+  #   ${}"Requires Unit Select parameter value"
+  #   {% elsif unit_select._parameter_value == "1s" %}
+  #   ${count}
+  #   {% elsif unit_select._parameter_value == "10s" %}
+  #   ${count}/10
+  #   {% elsif unit_select._parameter_value == "100s" %}
+  #   ${count}/100
+  #   {% elsif unit_select._parameter_value == "1000s" %}
+  #   ${count}/1000
+  #   {% endunless %}
+  #   ;;
+  # }
 
   measure: dynamic_measure_two {
     type: number

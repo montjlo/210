@@ -5,6 +5,7 @@ include: "/views/**/*.view"
 # include: "/*.dashboard"
 include: "/views/flights_explore_extend.explore.lkml"
 include: "/users_extend.view.lkml"
+include: "/move_lookml_dash.dashboard"
 
 # datagroup: josh_look_default_datagroup {
 #   # sql_trigger: SELECT MAX(id) FROM etl_log;;
