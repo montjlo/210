@@ -61,7 +61,7 @@ view: users {
     tiers: [0,5,20,50,100]
     style: integer
     sql: ${age} ;;
-    value_format: "$#,#0.00"
+    value_format: "$#0,#0.00"
   }
 
   dimension: price_rating_group {
@@ -153,9 +153,19 @@ view: users {
 ################ START field definitions for dynamic filter suggestions bug #####################
 
   parameter: suggest_param {
-    type: string
+    type: unquoted
     allowed_value: {value: "one"}
     allowed_value: {value: "two"}
+  }
+
+  dimension: dynamic_date {
+    label: "{% if suggest_param._parameter_value == 'one' %}DATE{%else%}MONTH{%endif%}"
+    sql:
+    {% if suggest_param._parameter_value == 'one' %}
+    ${created_date}
+    {% else %}
+    ${created_month}
+    {% endif %};;
   }
 
   dimension: filter_parameter_suggest_else {
@@ -416,8 +426,12 @@ view: users {
     drill_fields: [city]
     link: {
       label: "drill test"
-      url: "/explore/josh_look/users?fields=users.state,users.city&f[users.state]={{value}}"
+      url: "/explore/josh_look/users?fields=users.created_date,users.city&f[users.created_date]={{ _filters['users.date_example'] | url_encode }}"
     }
+  }
+
+  filter: date_example {
+    type: date
   }
 
   dimension: state_hidden {
