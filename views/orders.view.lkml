@@ -65,8 +65,11 @@ view: orders {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
-
-  }
+      link: {
+        label: "test"
+        url: "/dashboards-next/194"
+      }
+    }
 
   dimension: status_case {
     type: string
