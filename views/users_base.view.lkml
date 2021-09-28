@@ -145,10 +145,21 @@ view: users {
 ################ START field definitions for dynamic filter suggestions bug #####################
 
   parameter: suggest_param {
-    type: string
+    type: unquoted
     allowed_value: {value: "one"}
     allowed_value: {value: "two"}
   }
+
+  dimension: dynamic_date {
+    sql: ${created_date} ;;
+  }
+
+  dimension: days_in_filter {
+    hidden: yes
+    type: number
+    sql: DATEDIFF({% date_start created_date %},{% date_end created_date %}) ;;
+  }
+
 
   dimension: filter_parameter_suggest_else {
     suggest_persist_for: "2 seconds"
