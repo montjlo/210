@@ -64,6 +64,7 @@ explore: flights_two {
 explore: imgsrc1onerroralert2 {}
 
 explore: inventory_items {
+  fields: [ALL_FIELDS*,-products.brand]
   join: products {
     type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;
