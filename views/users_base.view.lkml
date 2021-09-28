@@ -61,9 +61,8 @@ view: users {
     tiers: [0,5,20,50,100]
     style: integer
     sql: ${age} ;;
-    value_format: "$#0,#0.00"
   }
-
+#save me
   dimension: price_rating_group {
     type: string
     case: {
