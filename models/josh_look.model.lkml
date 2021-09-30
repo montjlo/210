@@ -140,20 +140,10 @@ explore: order_items {
 }
 
 explore: orders {
-  always_filter: {
-    filters: [orders.status: "cancelled"]
-  }
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
-    ###test for refine
-  #   fields: [
-  #     users.id,
-  #     age,
-  #     users.age_sum_test_refine,
-  #     users.age_plus_10,
-  #     users.age_plus_20]
    }
 }
 

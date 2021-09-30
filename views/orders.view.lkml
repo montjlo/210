@@ -99,7 +99,7 @@ view: orders {
 
   dimension: status_null {
     type: string
-    sql: CASE WHEN ${status} = "pending" THEN ""
+    sql: CASE WHEN ${status} = "complete" THEN NULL
     ELSE ${status_case} END;;
     }
 
