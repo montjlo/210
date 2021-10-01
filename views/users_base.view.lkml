@@ -40,6 +40,10 @@ view: users {
       https://lookerv2116.dev.looker.com/explore/josh_look/users?fields=users.count,users.city,max_age&sorts=users.count desc&limit=500&vis_config={{ vis_config | encode_uri }}&dynamic_fields={{ dynamic_fields | encode_uri }}
       "
     }
+    link: {
+      label: "direct link to explore with custom field"
+      url: "https://lookerv2116.dev.looker.com/x/ZzGag3sSjzGvFnWV4stWjD"
+    }
   }
 
 
