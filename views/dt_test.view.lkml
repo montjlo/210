@@ -11,6 +11,7 @@ view: dt_test {
           COUNT(*) DESC
       LIMIT 500
        ;;
+      #persist_for: "2 hours"
   }
 
   measure: count {
