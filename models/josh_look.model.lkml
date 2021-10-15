@@ -12,6 +12,8 @@ datagroup: josh_look_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+persist_with: josh_look_default_datagroup
+
 #I am a new commit
 
 explore: dt_test {

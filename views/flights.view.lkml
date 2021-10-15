@@ -26,6 +26,7 @@ view: flights {
   }
 
   dimension: carrier {
+    suggestable: yes
     type: string
     sql: ${TABLE}.carrier ;;
   }
@@ -57,6 +58,10 @@ view: flights {
   dimension: distance {
     type: number
     sql: ${TABLE}.distance ;;
+    link: {
+      label: "Link to new dashboard"
+      url: "/embed/dashboards-next/85?_theme={\"show_filters_bar\":false}"
+    }
   }
 
   dimension: diverted {
