@@ -11,6 +11,36 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  measure: number_test {
+    type: number
+    sql: ${age} ;;
+  }
+
+  measure: count_ages {
+    type: number
+    sql: COUNT(${age}) ;;
+  }
+
+  measure: percent_count_ages {
+    type: percent_of_total
+    sql: ${count_ages} ;;
+  }
+
+  dimension: age_and_30 {
+    type: number
+    sql: ${age}+30 ;;
+  }
+
+  measure: age_dynamic {
+    type: sum
+    sql: {% if age_tier._is_selected %}
+    ${age_and_30}
+    {% else %}
+    ${age}
+    {% endif %}
+    ;;
+  }
+
   ########### pass custom fields in link parameter example ############
 
   # link: {

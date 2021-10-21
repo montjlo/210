@@ -12,12 +12,11 @@ datagroup: josh_look_default_datagroup {
   max_cache_age: "1 hour"
 }
 
-#I am a new commit
-
-explore: dt_test {
-  persist_for: "2 hours"
+datagroup: i_am_prod {
+  max_cache_age: "2 hours"
 }
-#persist_with: josh_look_default_datagroup
+
+persist_with: i_am_prod
 
 explore: connection_reg_r3 {}
 #change 2
