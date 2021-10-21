@@ -1,3 +1,3 @@
-view: break_things__please {
+view: break_things%_please {
 
 }
