@@ -110,8 +110,21 @@ view: orders {
   }
 
   measure: count {
+
     type: count
     drill_fields: [id, users.last_name, users.id, users.first_name, order_items.count]
+  }
+
+  measure: count_aaron {
+    type: count
+    link: {
+      label: "Top 20"
+      url: "{{count._link}}&limit=20"
+    }
+    link: {
+      label: "test"
+      url : "https://www.google.com"
+    }
   }
 
   measure: count_2 {
