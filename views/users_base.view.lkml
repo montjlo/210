@@ -115,7 +115,13 @@ view: users {
     sql: ${TABLE}.age ;;
     drill_fields: [detail*]
   }
+measure: avg_age {
+  type: average
+  label: "average age"
+  description: "Average age"
 
+  sql: average(${age}) ;;
+}
   dimension: age_tier {
     type: tier
     tiers: [0,5,20,50,100]
