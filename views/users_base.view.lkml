@@ -26,6 +26,11 @@ view: users {
     sql: ${count_ages} ;;
   }
 
+  measure: percent_of_total_count {
+    type: percent_of_total
+    sql: ${count} ;;
+  }
+
   dimension: age_and_30 {
     type: number
     sql: ${age}+30 ;;
