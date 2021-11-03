@@ -52,6 +52,17 @@ view: products {
     sql: ${TABLE}.sku ;;
   }
 
+  measure: liquid_test {
+    type: number
+    sql: SUM(
+    {% if department._is_filtered %}
+    NULL
+    {% else %}
+    ${rank}
+    {% endif %}
+    ) ;;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, item_name, inventory_items.count]
