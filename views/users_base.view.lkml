@@ -11,6 +11,99 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: to_google {
+    type: string
+    sql: ${first_name} ;;
+    link: {
+      label: "To Google"
+      url: "https://www.google.com/search?q={{ first_name._value }}"
+    }
+  }
+
+  measure: number_test {
+    type: number
+    sql: ${age} ;;
+  }
+
+  measure: count_ages {
+    type: number
+    sql: COUNT(${age}) ;;
+  }
+
+  measure: percent_count_ages {
+    type: percent_of_total
+    sql: ${count_ages} ;;
+  }
+
+  measure: percent_of_total_count {
+    type: percent_of_total
+    sql: ${count} ;;
+  }
+
+  dimension: age_and_30 {
+    type: number
+    sql: ${age}+30 ;;
+  }
+
+  measure: age_dynamic {
+    type: sum
+    sql: {% if age_tier._is_selected %}
+    ${age_and_30}
+    {% else %}
+    ${age}
+    {% endif %}
+    ;;
+  }
+
+  ########### pass custom fields in link parameter example ############
+
+  # link: {
+  #   label: "Drilldown" #or your label of choice
+  #   url: "
+  #   {% assign vis_config = '{
+  #   {\"show_view_names\":false,\"show_row_numbers\":true,\"transpose\":false,\"truncate_text\":true,\"hide_totals\":false,\"hide_row_totals\":false,\"size_to_fit\":true,\"table_theme\":\"white\",\"limit_displayed_rows\":false,\"enable_conditional_formatting\":false,\"header_text_alignment\":\"left\",\"header_font_size\":\"12\",\"rows_font_size\":\"12\",\"conditional_formatting_include_totals\":false,\"conditional_formatting_include_nulls\":false,\"show_sql_query_menu_options\":false,\"show_totals\":true,\"show_row_totals\":true,\"series_cell_visualizations\":{\"f_project.project_count\":{\"is_active\":false}},\"series_value_format\":{\"f_project.project_id\":{\"name\":\"id\",\"format_string\":\"0\",\"label\":\"ID\"}},\"type\":\"looker_grid\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"y_axis_tick_density_custom\":5,\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"x_axis_reversed\":false,\"y_axis_reversed\":false,\"plot_size_by_field\":false,\"trellis\":\"\",\"stacking\":\"\",\"legend_position\":\"center\",\"point_style\":\"none\",\"show_value_labels\":false,\"label_density\":25,\"x_axis_scale\":\"auto\",\"y_axis_combined\":true,\"ordering\":\"none\",\"show_null_labels\":false,\"show_totals_labels\":false,\"show_silhouette\":false,\"totals_color\":\"#808080\",\"defaults_version\":1,\"series_types\":{}
+  #   }' %}
+  #   {% assign dynamic_fields = '[
+  #   {\"measure\":\"project_with_no_tpv\",\"based_on\":\"f_project.project_count\",\"type\":\"count_distinct\",\"label\":\"Project with no TPV\",\"value_format\":null,\"value_format_name\":null,\"_kind_hint\":\"measure\",\"_type_hint\":\"number\",\"filter_expression\":\"is_null(${f_tpv.project_meeting_id}) = yes\"},{\"based_on\":\"a_project_meeting_summary.attach_cnt\",\"filter_expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"_kind_hint\":\"measure\",\"measure\":\"leads_attached\",\"type\":\"sum_distinct\",\"_type_hint\":\"number\",\"category\":\"measure\",\"expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"label\":\"Leads Attached\",\"value_format\":null,\"value_format_name\":null},{\"based_on\":\"a_project_meeting_summary.accept_cnt\",\"filter_expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"_kind_hint\":\"measure\",\"measure\":\"leads_accepted\",\"type\":\"sum_distinct\",\"_type_hint\":\"number\",\"category\":\"measure\",\"expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"label\":\"Leads Accepted\",\"value_format\":null,\"value_format_name\":null},{\"based_on\":\"a_project_meeting_summary.stc_post_accept_cnt\",\"filter_expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"_kind_hint\":\"measure\",\"measure\":\"leads_spa\",\"type\":\"sum\",\"_type_hint\":\"number\",\"category\":\"measure\",\"expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"label\":\"Leads SPA\",\"value_format\":null,\"value_format_name\":null}
+  #   ]' %}
+  #   /explore/projects/f_project?fields=d_date_project_start.date_date,f_project.project_id,f_project.title,d_client_pcd.client_name,d_user_ppu.name,f_cm_recruiting_request.request_id,f_tpv.consult_tpv_count,leads_attached,leads_accepted,leads_spa,f_tpv.CRP&f[d_date_project_start.date_date]=1 days&f[f_cm_recruiting_request.request_id]=NOT NULL&sorts=d_date_project_start.date_date desc&limit=500&total=on&query_timezone=America/New_York&vis_config={{ vis_config | encode_uri }}&dynamic_fields={{ dynamic_fields | encode_uri }}&toggle=dat,pik,vis"
+  # }
+
+  measure: link_to_custom_measure {
+    type: average
+    sql: ${age} ;;
+    link: {
+      label: "Link with custom measure"
+      url: "
+      {% assign vis_config = '{
+          {\"show_view_names\":false,\"show_row_numbers\":true,\"transpose\":false,\"truncate_text\":true,\"hide_totals\":false,\"hide_row_totals\":false,\"size_to_fit\":true,\"table_theme\":\"white\",\"limit_displayed_rows\":false,\"enable_conditional_formatting\":false,\"header_text_alignment\":\"left\",\"header_font_size\":\"12\",\"rows_font_size\":\"12\",\"conditional_formatting_include_totals\":false,\"conditional_formatting_include_nulls\":false,\"show_sql_query_menu_options\":false,\"show_totals\":true,\"show_row_totals\":true,\"series_cell_visualizations\":{\"users.count\":{\"is_active\":false}},\"type\":\"looker_grid\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"y_axis_tick_density_custom\":5,\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"x_axis_reversed\":false,\"y_axis_reversed\":false,\"plot_size_by_field\":false,\"trellis\":\"\",\"stacking\":\"\",\"legend_position\":\"center\",\"point_style\":\"none\",\"show_value_labels\":false,\"label_density\":25,\"x_axis_scale\":\"auto\",\"y_axis_combined\":true,\"ordering\":\"none\",\"show_null_labels\":false,\"show_totals_labels\":false,\"show_silhouette\":false,\"totals_color\":\"#808080\",\"defaults_version\":1,\"series_types\":{}
+          }' %}
+      {% assign dynamic_fields= '[
+          {\"category\":\"measure\",\"expression\":null,\"label\":\"Max Age\",\"value_format\":null,\"value_format_name\":null,\"based_on\":\"users.age\",\"_kind_hint\":\"measure\",\"measure\":\"max_age\",\"type\":\"max\",\"_type_hint\":\"number\"}
+          ]' %}
+      https://lookerv2116.dev.looker.com/explore/josh_look/users?fields=users.count,users.city,max_age&sorts=users.count desc&limit=500&vis_config={{ vis_config | encode_uri }}&dynamic_fields={{ dynamic_fields | encode_uri }}
+      "
+    }
+    link: {
+      label: "direct link to explore with custom field"
+      url: "https://lookerv2116.dev.looker.com/x/ZzGag3sSjzGvFnWV4stWjD"
+    }
+    link: {
+      label: "filtered custom measure"
+      url: "
+      {% assign vis_config = '{
+          {\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_view_names\":false,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"y_axis_tick_density_custom\":5,\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"x_axis_reversed\":false,\"y_axis_reversed\":false,\"plot_size_by_field\":false,\"trellis\":\"\",\"stacking\":\"\",\"limit_displayed_rows\":false,\"legend_position\":\"center\",\"point_style\":\"none\",\"show_value_labels\":false,\"label_density\":25,\"x_axis_scale\":\"auto\",\"y_axis_combined\":true,\"ordering\":\"none\",\"show_null_labels\":false,\"show_totals_labels\":false,\"show_silhouette\":false,\"totals_color\":\"#808080\",\"type\":\"looker_column\",\"defaults_version\":1}
+          }' %}
+      {% assign dynamic_fields= '[
+          {\"category\":\"measure\",\"expression\":null,\"label\":\"New Measure\",\"value_format\":null,\"value_format_name\":null,\"based_on\":\"users.age\",\"_kind_hint\":\"measure\",\"measure\":\"new_measure\",\"type\":\"sum\",\"_type_hint\":\"number\",\"filters\":{\"users.country\":\"USA\"}}
+          ]' %}
+      https://lookerv2116.dev.looker.com/explore/josh_look/users?fields=new_measure,users.state&sorts=new_measure desc&limit=500&vis_config={{ vis_config | encode_uri }}&dynamic_fields={{ dynamic_fields | encode_uri }}
+      "
+    }
+  }
+
+
+
   #### string measure subtotal test ####
   dimension: id_string {
     type: string
@@ -31,6 +124,17 @@ view: users {
   dimension: label_me {
     type: string
     sql: "Hi" ;;
+    link: {
+      label: "Drilldown" #or your label of choice
+      url: "
+      {% assign vis_config = '{
+      {\"show_view_names\":false,\"show_row_numbers\":true,\"transpose\":false,\"truncate_text\":true,\"hide_totals\":false,\"hide_row_totals\":false,\"size_to_fit\":true,\"table_theme\":\"white\",\"limit_displayed_rows\":false,\"enable_conditional_formatting\":false,\"header_text_alignment\":\"left\",\"header_font_size\":\"12\",\"rows_font_size\":\"12\",\"conditional_formatting_include_totals\":false,\"conditional_formatting_include_nulls\":false,\"show_sql_query_menu_options\":false,\"show_totals\":true,\"show_row_totals\":true,\"series_cell_visualizations\":{\"f_project.project_count\":{\"is_active\":false}},\"series_value_format\":{\"f_project.project_id\":{\"name\":\"id\",\"format_string\":\"0\",\"label\":\"ID\"}},\"type\":\"looker_grid\",\"x_axis_gridlines\":false,\"y_axis_gridlines\":true,\"show_y_axis_labels\":true,\"show_y_axis_ticks\":true,\"y_axis_tick_density\":\"default\",\"y_axis_tick_density_custom\":5,\"show_x_axis_label\":true,\"show_x_axis_ticks\":true,\"y_axis_scale_mode\":\"linear\",\"x_axis_reversed\":false,\"y_axis_reversed\":false,\"plot_size_by_field\":false,\"trellis\":\"\",\"stacking\":\"\",\"legend_position\":\"center\",\"point_style\":\"none\",\"show_value_labels\":false,\"label_density\":25,\"x_axis_scale\":\"auto\",\"y_axis_combined\":true,\"ordering\":\"none\",\"show_null_labels\":false,\"show_totals_labels\":false,\"show_silhouette\":false,\"totals_color\":\"#808080\",\"defaults_version\":1,\"series_types\":{}
+      }' %}
+      {% assign dynamic_fields = '[
+      {\"measure\":\"project_with_no_tpv\",\"based_on\":\"f_project.project_count\",\"type\":\"count_distinct\",\"label\":\"Project with no TPV\",\"value_format\":null,\"value_format_name\":null,\"_kind_hint\":\"measure\",\"_type_hint\":\"number\",\"filter_expression\":\"is_null(${f_tpv.project_meeting_id}) = yes\"},{\"based_on\":\"a_project_meeting_summary.attach_cnt\",\"filter_expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"_kind_hint\":\"measure\",\"measure\":\"leads_attached\",\"type\":\"sum_distinct\",\"_type_hint\":\"number\",\"category\":\"measure\",\"expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"label\":\"Leads Attached\",\"value_format\":null,\"value_format_name\":null},{\"based_on\":\"a_project_meeting_summary.accept_cnt\",\"filter_expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"_kind_hint\":\"measure\",\"measure\":\"leads_accepted\",\"type\":\"sum_distinct\",\"_type_hint\":\"number\",\"category\":\"measure\",\"expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"label\":\"Leads Accepted\",\"value_format\":null,\"value_format_name\":null},{\"based_on\":\"a_project_meeting_summary.stc_post_accept_cnt\",\"filter_expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"_kind_hint\":\"measure\",\"measure\":\"leads_spa\",\"type\":\"sum\",\"_type_hint\":\"number\",\"category\":\"measure\",\"expression\":\"${a_project_meeting_summary_cm.status}=\"Lead\"\",\"label\":\"Leads SPA\",\"value_format\":null,\"value_format_name\":null}
+      ]' %}
+      /explore/projects/f_project?fields=d_date_project_start.date_date,f_project.project_id,f_project.title,d_client_pcd.client_name,d_user_ppu.name,f_cm_recruiting_request.request_id,f_tpv.consult_tpv_count,leads_attached,leads_accepted,leads_spa,f_tpv.CRP&f[d_date_project_start.date_date]=1 days&f[f_cm_recruiting_request.request_id]=NOT NULL&sorts=d_date_project_start.date_date desc&limit=500&total=on&query_timezone=America/New_York&vis_config={{ vis_config | encode_uri }}&dynamic_fields={{ dynamic_fields | encode_uri }}&toggle=dat,pik,vis"
+    }
   }
 
   dimension: labled {
@@ -61,9 +165,8 @@ view: users {
     tiers: [0,5,20,50,100]
     style: integer
     sql: ${age} ;;
-    value_format: "$#0,#0.00"
   }
-
+#save me
   dimension: price_rating_group {
     type: string
     case: {
@@ -156,6 +259,12 @@ view: users {
     type: unquoted
     allowed_value: {value: "one"}
     allowed_value: {value: "two"}
+  }
+
+  dimension: days_in_filter {
+    hidden: yes
+    type: number
+    sql: DATEDIFF({% date_start created_date %},{% date_end created_date %}) ;;
   }
 
   dimension: dynamic_date {

@@ -7,15 +7,17 @@ include: "/views/flights_explore_extend.explore.lkml"
 include: "/users_extend.view.lkml"
 include: "/move_lookml_dash.dashboard"
 
-# datagroup: josh_look_default_datagroup {
-#   # sql_trigger: SELECT MAX(id) FROM etl_log;;
-#   max_cache_age: "1 hour"
-# }
-
-#I am a new commit
+datagroup: josh_look_default_datagroup {
+  sql_trigger: SELECT MAX(id) FROM etl_log;;
+  max_cache_age: "1 hour"
+}
 
 
-#persist_with: josh_look_default_datagroup
+datagroup: i_am_prod {
+  max_cache_age: "2 hours"
+}
+
+persist_with: i_am_prod
 
 explore: connection_reg_r3 {}
 #change 2
@@ -140,20 +142,10 @@ explore: order_items {
 }
 
 explore: orders {
-  always_filter: {
-    filters: [orders.status: "cancelled"]
-  }
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
     relationship: many_to_one
-    ###test for refine
-  #   fields: [
-  #     users.id,
-  #     age,
-  #     users.age_sum_test_refine,
-  #     users.age_plus_10,
-  #     users.age_plus_20]
    }
 }
 

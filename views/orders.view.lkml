@@ -98,7 +98,7 @@ view: orders {
 
   dimension: status_null {
     type: string
-    sql: CASE WHEN ${status} = "pending" THEN ""
+    sql: CASE WHEN ${status} = "complete" THEN NULL
     ELSE ${status_case} END;;
     }
 
@@ -162,6 +162,11 @@ view: orders {
       }' %}
       {{ link }}&vis_config={{ vis_config | encode_uri }}&toggle=dat,pik,vis&limit=5000"
     }
+  }
+
+  measure: percent_of_total {
+    type: percent_of_total
+    sql: ${count} ;;
   }
 
   measure: count_2 {

@@ -9,6 +9,11 @@ view: events {
     html:  <p style= font-size: 50%>{{ rendered_value | date: "%b %Y" }}</p> ;;
   }
 
+  parameter: string_test {
+    type: string
+    suggest_dimension: value
+  }
+
   dimension_group: created {
     type: time
     timeframes: [

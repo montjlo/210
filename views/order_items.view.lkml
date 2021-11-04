@@ -8,6 +8,28 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  parameter: my_pam {
+    type: unquoted
+    allowed_value: {
+      value: "lower"
+    }
+    allowed_value: {
+      value: "other"
+    }
+  }
+
+  dimension: my_pam_test {
+    type: number
+    sql:
+    {% if my_pam._parameter_value == 'lower' %}
+    1
+    {% elsif my_pam._parameter_value == 'other' %}
+    2
+    {% else %}
+    NULL
+    {% endif %};;
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
