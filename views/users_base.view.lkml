@@ -11,6 +11,15 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: to_google {
+    type: string
+    sql: ${first_name} ;;
+    link: {
+      label: "To Google"
+      url: "https://www.google.com/search?q={{ first_name._value }}"
+    }
+  }
+
   measure: number_test {
     type: number
     sql: ${age} ;;
