@@ -62,7 +62,7 @@ view: orders {
     drill_fields: [id, user_id]
   }
 
-  dimension: status {
+  dimension: status1 {
     type: string
     sql: ${TABLE}.status ;;
 
@@ -72,11 +72,11 @@ view: orders {
     type: string
     case: {
       when: {
-        sql: ${status} = "complete";;
+        sql: ${status1} = "complete";;
         label: "Complete - L"
       }
       when: {
-        sql: ${status} = "cancelled";;
+        sql: ${status1} = "cancelled";;
         label: "Cancelled - L"
       }
       else:" "
@@ -97,7 +97,7 @@ view: orders {
 
   dimension: status_null {
     type: string
-    sql: CASE WHEN ${status} = "pending" THEN ""
+    sql: CASE WHEN ${status1} = "pending" THEN ""
     ELSE ${status_case} END;;
     }
 
