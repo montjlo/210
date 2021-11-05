@@ -61,6 +61,12 @@ view: order_items {
     sql: ${TABLE}.sale_price ;;
   }
 
+  dimension: sale_price_japanese {
+    type: number
+    label: "売上金額"
+    sql: ${sale_price} ;;
+  }
+
   measure: total_sale_price {
     type: sum
     sql: ${sale_price} ;;
