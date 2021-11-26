@@ -538,6 +538,12 @@ view: users {
     }
   }
 
+  dimension: state_replace {
+    type: string
+    sql: CASE WHEN ${state} = "Texas" THEN REPLACE(${state},"Texas","äáéíÓÚãõñÃÕÑâêîÔÛ")
+    ELSE REPLACE(${state},"a","äáéíãõñâêîÔ") END ;;
+  }
+
   filter: date_example {
     type: date
   }
