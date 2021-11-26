@@ -511,7 +511,6 @@ view: users {
       url: "{% if users.state._value == 'California' %} https://www.google.com {% else %} https://www.youtube.com/watch?v=feA64wXhbjo {% endif %}"
     }
   }
-
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;

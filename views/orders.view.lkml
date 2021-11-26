@@ -109,6 +109,29 @@ view: orders {
     sql: ${TABLE}.user_id ;;
   }
 
+  parameter: date_granularity {
+    type: unquoted
+    allowed_value: {
+      label: "Break down by Day"
+      value: "day"
+    }
+    allowed_value: {
+      label: "Break down by Month"
+      value: "month"
+    }
+  }
+
+  dimension: date {
+    sql:
+    {% if date_granularity._parameter_value == 'day' %}
+      ${created_date}
+    {% elsif date_granularity._parameter_value == 'month' %}
+      ${created_month}
+    {% else %}
+      ${created_date}
+    {% endif %};;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, users.last_name, users.id, users.first_name, order_items.count]
