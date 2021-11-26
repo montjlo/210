@@ -40,10 +40,6 @@ view: order_items {
     type: number
     # hidden: yes
     sql: ${TABLE}.order_id ;;
-    link: {
-      label: "Drill Dashboard"
-      url: "/dashboards/130?&OrderID={{ _filters['orders.id'] | url_encode }}"
-    }
   }
 
   dimension_group: returned {
