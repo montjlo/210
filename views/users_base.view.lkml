@@ -157,6 +157,10 @@ view: users {
   dimension: age{
     type: number
     sql: ${TABLE}.age ;;
+    link: {
+      label: "Drill Explore"
+      url: "/explore/josh_look/order_items?fields=users.age,order_items.sale_price,orders.id&f[users.age]={{value  | url_encode}}"
+    }
     drill_fields: [detail*]
   }
 
@@ -396,6 +400,7 @@ view: users {
   dimension_group: created {
     type: time
     #group_label:  "True Label"
+    convert_tz: no
     timeframes: [
       raw,
       time,
@@ -1017,6 +1022,11 @@ parameter: condition_test {
 
 dimension: age_condition_param_test {
   sql: ${age} > {% parameter condition_test %} ;;
+}
+
+dimension: userdate {
+  type: string
+  sql:  ${created_date};;
 }
 
 }

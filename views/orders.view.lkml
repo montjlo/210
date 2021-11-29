@@ -6,9 +6,16 @@ view: orders {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
-    drill_fields: [id, count]
-    #html:  <p style="color: black; font-size:175%">{{ rendered_value }}</p> ;;
-
+  #Module 3 part 1 A#
+  link: {
+    label: "Drill Dashboard ID"
+    url: "/dashboards-next/130?Orders ID={{ value }}&Age={{ users.age._value | url_encode }}"
+  }
+  #Module 3 part 1 B#
+    link: {
+      label: "Passing filters"
+      url: "/dashboards-next/130?Created Year={{ _filters['created_year'] | url_encode}}"
+    }
   }
 
   dimension_group: created {
@@ -25,6 +32,14 @@ view: orders {
     ]
     sql: ${TABLE}.created_at ;;
   }
+  # dimension: Year {
+  #   type: number
+  #   sql: ${created_year} ;;
+  #       link: {
+  #         label: "Passing filters"
+  #         url: "/dashboards/129?Yera={{ _filters['Year'] | url_encode}}"
+  #       }
+  # }
 
   parameter: liquid_test {
     type: string
