@@ -149,28 +149,7 @@ explore: orders {
    }
 }
 
-explore: orders_two {
-  from: orders
-  sql_always_where:
-  {% if orders_two.liquid_test._parameter_value == 'one' %}
-  1=1
-  {% else %}
-  ${users.age}>20
-  {% endif %};;
-  join: users {
-    type: left_outer
-    #sql_on: orders_two.user_id = users.id ;;
-    sql:
 
-  {% if orders_two.liquid_test._parameter_value == 'one' %}
-   -- lol
-  {% else %}
-  ${orders_two.user_id} = ${users.id}
-  {% endif %}
-  ;;
-    relationship: many_to_one
-  }
-}
 
 explore: orders_three {
   from: orders
