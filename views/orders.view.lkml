@@ -6,9 +6,16 @@ view: orders {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
-    drill_fields: [id, count]
-    #html:  <p style="color: black; font-size:175%">{{ rendered_value }}</p> ;;
-
+  #Module 3 part 1 A#
+  link: {
+    label: "Drill Dashboard ID"
+    url: "/dashboards-next/130?Orders ID={{ value }}&Age={{ users.age._value | url_encode }}"
+  }
+  #Module 3 part 1 B#
+    link: {
+      label: "Passing filters"
+      url: "/dashboards-next/130?Created Year={{ _filters['created_year'] | url_encode}}"
+    }
   }
 
   dimension_group: created {
@@ -25,6 +32,14 @@ view: orders {
     ]
     sql: ${TABLE}.created_at ;;
   }
+  # dimension: Year {
+  #   type: number
+  #   sql: ${created_year} ;;
+  #       link: {
+  #         label: "Passing filters"
+  #         url: "/dashboards/129?Yera={{ _filters['Year'] | url_encode}}"
+  #       }
+  # }
 
   parameter: liquid_test {
     type: string
@@ -67,7 +82,6 @@ view: orders {
     type: string
     sql: ${TABLE}.status ;;
     drill_fields: [status,created_date, count]
-
   }
 
   dimension: status_case {
@@ -109,9 +123,40 @@ view: orders {
     sql: ${TABLE}.user_id ;;
   }
 
+  parameter: date_granularity {
+    type: unquoted
+    allowed_value: {
+      label: "Break down by Day"
+      value: "day"
+    }
+    allowed_value: {
+      label: "Break down by Month"
+      value: "month"
+    }
+  }
+
+  dimension: date {
+    sql:
+    {% if date_granularity._parameter_value == 'day' %}
+      ${created_date}
+    {% elsif date_granularity._parameter_value == 'month' %}
+      ${created_month}
+    {% else %}
+      ${created_date}
+    {% endif %};;
+  }
+
   measure: count {
     type: count
     drill_fields: [id, users.last_name, users.id, users.first_name, order_items.count]
+    link: {
+      label: "Show as scatter plot"
+      url: "
+      {% assign vis_config = '{
+      \"type\" : \"single_value\"
+      }' %}
+      {{ link }}&vis_config={{ vis_config | encode_uri }}&toggle=dat,pik,vis&limit=5000"
+    }
   }
 
   measure: percent_of_total {

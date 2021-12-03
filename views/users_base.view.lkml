@@ -157,6 +157,10 @@ view: users {
   dimension: age{
     type: number
     sql: ${TABLE}.age ;;
+    link: {
+      label: "Drill Explore"
+      url: "/explore/josh_look/order_items?fields=users.age,order_items.sale_price,orders.id&f[users.age]={{value  | url_encode}}"
+    }
     drill_fields: [detail*]
   }
 
@@ -396,6 +400,7 @@ view: users {
   dimension_group: created {
     type: time
     #group_label:  "True Label"
+    convert_tz: no
     timeframes: [
       raw,
       time,
@@ -511,7 +516,6 @@ view: users {
       url: "{% if users.state._value == 'California' %} https://www.google.com {% else %} https://www.youtube.com/watch?v=feA64wXhbjo {% endif %}"
     }
   }
-
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
@@ -537,6 +541,12 @@ view: users {
       label: "drill test"
       url: "/explore/josh_look/users?fields=users.created_date,users.city&f[users.created_date]={{ _filters['users.date_example'] | url_encode }}"
     }
+  }
+
+  dimension: state_replace {
+    type: string
+    sql: CASE WHEN ${state} = "Texas" THEN REPLACE(${state},"Texas","äáéíÓÚãõñÃÕÑâêîÔÛ")
+    ELSE REPLACE(${state},"a","äáéíãõñâêîÔ") END ;;
   }
 
   filter: date_example {
@@ -1012,6 +1022,11 @@ parameter: condition_test {
 
 dimension: age_condition_param_test {
   sql: ${age} > {% parameter condition_test %} ;;
+}
+
+dimension: userdate {
+  type: string
+  sql:  ${created_date};;
 }
 
 }

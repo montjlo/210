@@ -51,14 +51,40 @@ view: order_items {
       week,
       month,
       quarter,
+      hour_of_day,
       year
     ]
     sql: ${TABLE}.returned_at ;;
   }
+  parameter: date_granularity {
+    type: unquoted
+    allowed_value: {
+      label: "Break down by hour"
+      value: "hour"
+    }
+    allowed_value: {
+      label: "Break down by Month"
+      value: "month"
+    }
+  }
 
+  dimension: date {
+    sql:
+    {% if date_granularity._parameter_value == 'hour' %}
+      ${returned_hour_of_day}
+    {% else %}
+      ${returned_month}
+    {% endif %};;
+  }
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+  }
+
+  dimension: sale_price_japanese {
+    type: number
+    label: "売上金額"
+    sql: ${sale_price} ;;
   }
 
   measure: total_sale_price {
