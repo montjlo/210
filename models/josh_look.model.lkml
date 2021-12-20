@@ -21,7 +21,7 @@ datagroup: i_am_prod {
 
 persist_with: i_am_prod
 
-explore: connection_reg_r3 {}
+#explore: connection_reg_r3 {}
 #change 2
 # access_grant: test {
 #   allowed_values: ["tehe"]
@@ -65,7 +65,7 @@ explore: flights_two {
   extends: [flights]
 }
 
-explore: imgsrc1onerroralert2 {}
+#explore: imgsrc1onerroralert2 {}
 
 explore: inventory_items {
   fields: [ALL_FIELDS*,-products.brand]
@@ -114,10 +114,6 @@ explore: order_items {
     dimensions: [orders.status]
   }
 
-
-
-
-
   join: orders {
     type: left_outer
     sql_on: ${order_items.order_id} = ${orders.id} ;;
@@ -151,51 +147,51 @@ explore: orders {
    }
 }
 
-explore: orders_two {
-  from: orders
-  sql_always_where:
-  {% if orders_two.liquid_test._parameter_value == 'one' %}
-  1=1
-  {% else %}
-  ${users.age}>20
-  {% endif %};;
-  join: users {
-    type: left_outer
-    #sql_on: orders_two.user_id = users.id ;;
-    sql:
+# explore: orders_two {
+#   from: orders
+#   sql_always_where:
+#   {% if orders_two.liquid_test._parameter_value == 'one' %}
+#   1=1
+#   {% else %}
+#   ${users.age}>20
+#   {% endif %};;
+#   join: users {
+#     type: left_outer
+#     #sql_on: orders_two.user_id = users.id ;;
+#     sql:
 
-  {% if orders_two.liquid_test._parameter_value == 'one' %}
-   -- lol
-  {% else %}
-  ${orders_two.user_id} = ${users.id}
-  {% endif %}
-  ;;
-    relationship: many_to_one
-  }
-}
+#   {% if orders_two.liquid_test._parameter_value == 'one' %}
+#   -- lol
+#   {% else %}
+#   ${orders_two.user_id} = ${users.id}
+#   {% endif %}
+#   ;;
+#     relationship: many_to_one
+#   }
+# }
 
-explore: orders_three {
-  from: orders
-  sql_always_where:
-  {% if orders_three.liquid_test._parameter_value == 'one' %}
-  1=1
-  {% else %}
-  2=2
-  {% endif %};;
-  join: users {
-    type: left_outer
-    #sql_on: orders_two.user_id = users.id ;;
-    sql_on: ${orders_three.user_id} = ${users.id} ;;
-    relationship: many_to_one
-  }
-}
+# explore: orders_three {
+#   from: orders
+#   sql_always_where:
+#   {% if orders_three.liquid_test._parameter_value == 'one' %}
+#   1=1
+#   {% else %}
+#   2=2
+#   {% endif %};;
+#   join: users {
+#     type: left_outer
+#     #sql_on: orders_two.user_id = users.id ;;
+#     sql_on: ${orders_three.user_id} = ${users.id} ;;
+#     relationship: many_to_one
+#   }
+# }
 
-explore: orders_four {
-  from: orders
-  sql_always_where:
- {% condition orders_four.status %} ${status} {% endcondition %}
-AND {% condition orders_four.status %} ${status_image} {% endcondition %};;
-}
+# explore: orders_four {
+#   from: orders
+#   sql_always_where:
+# {% condition orders_four.status %} ${status} {% endcondition %}
+# AND {% condition orders_four.status %} ${status_image} {% endcondition %};;
+# }
 
 #{% condition orders_four.one_one %} ${orders_four.liquid_test} {% endcondition %}
 #{% parameter orders_four.liquid_test %} = {% condition orders_four.one_one %} one_one {% endcondition %}
@@ -208,7 +204,7 @@ explore: saralooker {
   }
 }
 
-explore: schema_migrations {}
+#explore: schema_migrations {}
 
 explore: user_data {
   join: users {
