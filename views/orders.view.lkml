@@ -14,7 +14,15 @@ view: orders {
   #Module 3 part 1 B#
     link: {
       label: "Passing filters"
-      url: "/dashboards-next/130?Created Year={{ _filters['created_year'] | url_encode}}"
+      url: "/dashboards-next/130?Created Date={{ _filters['created_date'] | url_encode}}"
+    }
+    link: {
+      label: "Drill to explore"
+      url: "https://lookerv2118.dev.looker.com/explore/josh_look/order_items?fields=orders.id,products.brand&f[orders.created_year]={{ _filters['created_year'] | url_encode }}"
+    }
+    link: {
+      label: "Drill with special characters"
+      url: "https://lookerv2118.dev.looker.com/explore/josh_look/orders?fields=orders.id,orders.user_id&f[orders.name]={{ _filters['name'] | url_encode }}"
     }
   }
 
@@ -28,19 +36,42 @@ view: orders {
       week,
       month,
       quarter,
-      year
+      year,
+      hour_of_day
     ]
     sql: ${TABLE}.created_at ;;
   }
-  # dimension: Year {
-  #   type: number
-  #   sql: ${created_year} ;;
-  #       link: {
-  #         label: "Passing filters"
-  #         url: "/dashboards/129?Yera={{ _filters['Year'] | url_encode}}"
-  #       }
-  # }
 
+  dimension: Newhour {
+    type: number
+    sql: ${created_hour_of_day} ;;
+  }
+  dimension: Newhour1 {
+    sql:
+    CASE
+    WHEN ${created_hour_of_day} = 6 THEN 1
+    WHEN ${created_hour_of_day} = 7 THEN 2
+    WHEN ${created_hour_of_day} = 8 THEN 3
+    WHEN ${created_hour_of_day} = 9 THEN 4
+    WHEN ${created_hour_of_day} = 10 THEN 5
+    WHEN ${created_hour_of_day} = 11 THEN 6
+    WHEN ${created_hour_of_day} = 12 THEN 7
+    WHEN ${created_hour_of_day} = 13 THEN 8
+    WHEN ${created_hour_of_day} = 14 THEN 9
+    WHEN ${created_hour_of_day} = 15 THEN 10
+    WHEN ${created_hour_of_day} = 16 THEN 11
+    WHEN ${created_hour_of_day} = 17 THEN 12
+    ELSE NULL
+    END;;
+  }
+  dimension: Concat_values{
+    type:string
+    sql: CONCAT(${created_date}," ","Durga");;
+  }
+  dimension: name {
+    type: string
+    sql: 'Durga''s' 'look' ;;
+  }
   parameter: liquid_test {
     type: string
     allowed_value: {
@@ -168,4 +199,22 @@ view: orders {
     type: count
     value_format: "[>=1000000]#,##0.0,, \"M€\";[>=1000]#,##0.0, \"K€\";#,##0.0 \"€\""
   }
+  parameter: date_granular {
+    type: unquoted
+    allowed_value: {
+      label: "Break down by Day"
+      value: "day"
+    }
+    allowed_value: {
+      label: "Break down by Month"
+      value: "month"
+    }
+  }
+
+  dimension: date_granularity1 {
+       html:
+           {% if date_granular._parameter_value == 'day' %}
+            <a href = "https://lookerv2118.dev.looker.com/explore/josh_look/order_items?fields=users.age,order_items.sale_price,orders.id&f[users.age]={{ value }}"</a>
+           {% endif %};;
+}
 }

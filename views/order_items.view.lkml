@@ -59,22 +59,9 @@ view: order_items {
   parameter: date_granularity {
     type: unquoted
     allowed_value: {
-      label: "Break down by hour"
-      value: "hour"
+      label: "Break down by Date"
+      value: "date"
     }
-    allowed_value: {
-      label: "Break down by Month"
-      value: "month"
-    }
-  }
-
-  dimension: date {
-    sql:
-    {% if date_granularity._parameter_value == 'hour' %}
-      ${returned_hour_of_day}
-    {% else %}
-      ${returned_month}
-    {% endif %};;
   }
   dimension: sale_price {
     type: number

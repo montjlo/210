@@ -7,13 +7,14 @@ include: "/views/flights_explore_extend.explore.lkml"
 include: "/users_extend.view.lkml"
 include: "/move_lookml_dash.dashboard"
 include: "/test_1.view.lkml"
+include: "/sql_runner_query.view.lkml"
 
 datagroup: josh_look_default_datagroup {
   sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
 }
 
-
+explore: sql_runner_query {}
 datagroup: i_am_prod {
   max_cache_age: "2 hours"
 }
