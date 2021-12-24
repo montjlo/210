@@ -182,7 +182,7 @@ view: orders {
     type: count
     drill_fields: [users.last_name, users.first_name]
     value_format_name: decimal_1
-    html: {{rendered_value}} ;;
+    html: {{rendered_value}} documents ;;
     # link: {
     #   label: "Show as scatter plot"
     #   url: "
