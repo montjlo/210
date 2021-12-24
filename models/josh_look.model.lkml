@@ -31,19 +31,14 @@ persist_with: i_am_prod
 explore: test {}
 
 explore: events {
-  hidden:  yes
+  hidden:  no
   join: users {
     type: left_outer
     sql_on: ${events.user_id} = ${users.id} ;;
     relationship: many_to_one
   }
-  sql_always_where:
-  {% if users.name != null %}
-2=2
-{% else %}
-1=1
-{% endif %}
-  ;;
+}
+
 
 #   sql_always_where:
 #   {% if fct_opportunity.valid_start._is_filtered AND fct_opportunity.valid_end._is_filtered %}
@@ -56,7 +51,7 @@ explore: events {
 #   1=1
 #   {% endif %}
 #   ;;
-}
+
 explore: products {
   hidden: yes
 }
@@ -68,7 +63,7 @@ explore: flights_two {
 #explore: imgsrc1onerroralert2 {}
 
 explore: inventory_items {
-  fields: [ALL_FIELDS*,-products.brand]
+  fields: [ALL_FIELDS*]
   join: products {
     type: left_outer
     sql_on: ${inventory_items.product_id} = ${products.id} ;;

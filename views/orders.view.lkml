@@ -112,7 +112,7 @@ view: orders {
   dimension: status {
     type: string
     sql: ${TABLE}.status ;;
-    drill_fields: [status,created_date, count]
+    drill_fields: [users.last_name, users.first_name]
   }
 
   dimension: status_case {
@@ -179,15 +179,17 @@ view: orders {
 
   measure: count {
     type: count
-    drill_fields: [id, users.last_name, users.id, users.first_name, order_items.count]
-    link: {
-      label: "Show as scatter plot"
-      url: "
-      {% assign vis_config = '{
-      \"type\" : \"single_value\"
-      }' %}
-      {{ link }}&vis_config={{ vis_config | encode_uri }}&toggle=dat,pik,vis&limit=5000"
-    }
+    drill_fields: [users.last_name, users.first_name]
+    value_format_name: decimal_1
+    html: {{rendered_value}} ;;
+    # link: {
+    #   label: "Show as scatter plot"
+    #   url: "
+    #   {% assign vis_config = '{
+    #   \"type\" : \"single_value\"
+    #   }' %}
+    #   {{ link }}&vis_config={{ vis_config | encode_uri }}&toggle=dat,pik,vis&limit=5000"
+    # }
   }
 
   measure: percent_of_total {

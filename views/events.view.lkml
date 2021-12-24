@@ -26,6 +26,7 @@ view: events {
       year
     ]
     sql: ${TABLE}.created_at ;;
+    drill_fields: [users.last_name, users.first_name]
   }
 
   dimension: type_id {
@@ -46,6 +47,8 @@ view: events {
 
   measure: count {
     type: count
-    drill_fields: [id, users.last_name, users.id, users.first_name]
+    html:{{ rendered_value }};;
+    value_format_name: decimal_1
+    drill_fields: [users.last_name, users.first_name]
   }
 }
