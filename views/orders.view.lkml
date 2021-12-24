@@ -40,6 +40,7 @@ view: orders {
       hour_of_day
     ]
     sql: ${TABLE}.created_at ;;
+    drill_fields: [users.last_name, users.first_name]
   }
 
   dimension: Newhour {
