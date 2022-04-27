@@ -5,8 +5,12 @@ view: order_items {
   dimension: id {
     primary_key: yes
     type: number
-    sql: ${TABLE}.id ;;
+    sql: ${TABLE}.id;;
+    link: {
+    label: "City Metrics Explore"
+    url: "https://lookerv2120.dev.looker.com/explore/ecommerce_model/order_items_explore?fields=users.city,orders.count,users.count&f[users.city]={{ value }}&sorts=orders.count+desc&limit=500"
   }
+}
 
   parameter: my_pam {
     type: unquoted
@@ -79,6 +83,30 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql: ${TABLE}.sale_price ;;
+  }
+  measure: total_revenue_conditional {
+    type: sum
+    sql: ${sale_price} ;;
+    value_format_name: usd
+    html: <table>
+    <tr style="background-color: #BDB76B"> {{ rendered_value }}
+    </tr>
+</table> ;;
+    # html: {% if value > 1300.00 %}
+    #       <p style="color: white;  margin: 0; background-color: ##FFC20A; border-radius: 5px; text-align:center">
+    #       {{ rendered_value }}</p>
+    #       {% elsif value > 1200.00 %}
+    #       <p style="color: white;  margin: 0;background-color: #0C7BDC; border-radius: 5px; text-align:center">
+    #       {{ rendered_value }}</p>
+    #       {% else %}
+    #       <p style="color: white;  margin: 0; background-color: #6D7170; border-radius: 5px; text-align:center">
+    #       {{ rendered_value }}</p>
+    #       {% endif %}
+    #       ;;
+
+
+
+
   }
 
   dimension: sale_price_japanese {

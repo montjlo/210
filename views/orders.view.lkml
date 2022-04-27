@@ -6,12 +6,12 @@ view: orders {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
-  #Module 3 part 1 A#
+
   link: {
     label: "Drill Dashboard ID"
     url: "/dashboards-next/130?Orders ID={{ value }}&Age={{ users.age._value | url_encode }}"
   }
-  #Module 3 part 1 B#
+
     link: {
       label: "Passing filters"
       url: "/dashboards-next/130?Created Year={{ _filters['created_year'] | url_encode}}"
